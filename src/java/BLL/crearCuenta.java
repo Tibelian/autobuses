@@ -1,56 +1,64 @@
 
 package BLL;
 
-import Modelo.Reserva;
-import POJOS.Viajero;
+import DAO.HibernateUtil;
+import DAO.Operacion;
+import Modelo.MyHash;
+import POJOS.Cliente;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
 
-public class guardarPasajeros extends HttpServlet {
+public class crearCuenta extends HttpServlet {
     
+    private SessionFactory SessionBuilder;
+    
+    @Override
+    public void init(){
+        SessionBuilder = HibernateUtil.getSessionFactory();
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            if(request.getParameter("data") != null){
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            String nombre = request.getParameter("nombre");
+            String apellidos = request.getParameter("apellidos");
+            String dni = request.getParameter("dni");
+            String telefono = request.getParameter("telefono");
+            
+            if(email != null && password != null && nombre != null && apellidos != null && dni != null && telefono != null){
                 
-                String jsonString = request.getParameter("data");
-                HttpSession session = request.getSession(true);
-                if(session.getAttribute("reserva") != null){
-                    Reserva reserva = (Reserva)session.getAttribute("reserva");
-                    JSONArray json = new JSONArray(jsonString);
-                    ArrayList<Viajero> listado = new ArrayList();
+                Cliente cliente = new Cliente();
+                cliente.setEmail(email);
+                cliente.setNombre(nombre);
+                cliente.setApellidos(apellidos);
+                cliente.setTelefono(Integer.parseInt(telefono));
+                cliente.setClave(MyHash.encriptar(password));
+                
+                try{
                     
-                    Iterator jsonIterator = json.iterator();
-                    while(jsonIterator.hasNext()){
-                        JSONObject obj = (JSONObject)jsonIterator.next();
-                        Viajero viajero = new Viajero();
-                        viajero.setDni((String)obj.get("dni"));
-                        viajero.setApellidos((String)obj.get("apellidos"));
-                        viajero.setNombre((String)obj.get("nombre"));
-                        viajero.setAsiento(Integer.parseInt((String)obj.get("asiento")));
-                        listado.add(viajero);
+                    new Operacion().crearCuenta(SessionBuilder, cliente);
+                    if(request.getParameter("redirect") != null){
+                        response.sendRedirect(request.getParameter("redirect"));
+                    }else{
+                        out.println("Cuenta creada con éxito");
                     }
-                    reserva.setViajeros(listado);
-                    session.setAttribute("pagina", "resumen.jsp");
-                    out.println("OK");
                     
-                }else{
-                    response.sendRedirect("./error.jsp?code=reserva-404");
+                }catch(HibernateException ex){
+                    out.println("No se ha podido crear la cuenta: " + ex.getMessage());
                 }
                 
             }else{
-                out.println("FALTAN DATOS");
+                out.println("Faltan parametros");
             }
             
         }

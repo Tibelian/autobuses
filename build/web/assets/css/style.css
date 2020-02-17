@@ -19,8 +19,14 @@ body{
     display: flex;
     flex-direction: column;
     background-color: #f9f9f9;
-    font-family: roboto;
+    font-family: 'Montserrat', sans-serif;
 }
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../webfonts/Montserrat-Regular.ttf');
+}
+
 
 
 /*
@@ -552,4 +558,51 @@ DRAG AND DROP
     bottom: -7px;
     right: 40px;
     border-radius: 0 0 10px 10px;
+}
+
+
+.summary ul{
+    list-style-type: none;
+    margin: 5px;
+    position: relative;
+    background-color: #d9d9d9;
+    border: 1px solid var(--dark-blue);
+}
+.summary ul li{
+    padding: 5px;
+}
+
+.summary-travel{
+    margin-bottom: 10px!important;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.summary-travel li{
+    width: 50%;
+    text-align: center;
+}
+.summary-passenger{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.summary-passenger ul{
+    width: 48%;
+}
+
+
+.price{
+    padding: 10px;
+    margin: 5px;
+    color: var(--dark-blue);
+}
+
+.avatar{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+.avatar i{
+    color: rgba(0, 0, 0, .1);
 }

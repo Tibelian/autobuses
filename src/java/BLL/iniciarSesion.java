@@ -1,56 +1,57 @@
 
 package BLL;
 
-import Modelo.Reserva;
-import POJOS.Viajero;
+import DAO.HibernateUtil;
+import DAO.Operacion;
+import Modelo.AutobusesException;
+import Modelo.MyHash;
+import POJOS.Cliente;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.hibernate.SessionFactory;
 
-public class guardarPasajeros extends HttpServlet {
+public class iniciarSesion extends HttpServlet {
     
+    private SessionFactory SessionBuilder;
+    
+    @Override
+    public void init(){
+        SessionBuilder = HibernateUtil.getSessionFactory();
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            if(request.getParameter("data") != null){
+            if(request.getParameter("email") != null && request.getParameter("password") != null){
+            
+                String email = request.getParameter("email");
+                String password = MyHash.encriptar(request.getParameter("password"));
                 
-                String jsonString = request.getParameter("data");
-                HttpSession session = request.getSession(true);
-                if(session.getAttribute("reserva") != null){
-                    Reserva reserva = (Reserva)session.getAttribute("reserva");
-                    JSONArray json = new JSONArray(jsonString);
-                    ArrayList<Viajero> listado = new ArrayList();
+                try{
                     
-                    Iterator jsonIterator = json.iterator();
-                    while(jsonIterator.hasNext()){
-                        JSONObject obj = (JSONObject)jsonIterator.next();
-                        Viajero viajero = new Viajero();
-                        viajero.setDni((String)obj.get("dni"));
-                        viajero.setApellidos((String)obj.get("apellidos"));
-                        viajero.setNombre((String)obj.get("nombre"));
-                        viajero.setAsiento(Integer.parseInt((String)obj.get("asiento")));
-                        listado.add(viajero);
+                    Cliente cliente = new Operacion().iniciarSesion(SessionBuilder, email, password);
+                    HttpSession session = request.getSession(true);
+                    session.setAttribute("cliente", cliente);
+                    
+                    if(request.getParameter("redirect") != null){
+                        response.sendRedirect(request.getParameter("redirect"));
+                    }else{
+                        out.println("Has iniciado sesión con éxito");
                     }
-                    reserva.setViajeros(listado);
-                    session.setAttribute("pagina", "resumen.jsp");
-                    out.println("OK");
-                    
-                }else{
-                    response.sendRedirect("./error.jsp?code=reserva-404");
+                
+                }catch(AutobusesException ex){
+                    out.println("Error: " + ex.getMessage());
                 }
                 
             }else{
-                out.println("FALTAN DATOS");
+                out.println("Falta parámetros");
             }
             
         }

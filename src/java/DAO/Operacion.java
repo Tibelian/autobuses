@@ -2,6 +2,7 @@
 package DAO;
 
 import Modelo.AutobusesException;
+import POJOS.Cliente;
 import POJOS.Compra;
 import POJOS.Horario;
 import POJOS.Ruta;
@@ -101,6 +102,39 @@ public class Operacion {
     }
     
     
+    public Cliente iniciarSesion(SessionFactory sessionBuilder, String email, String password) throws AutobusesException{
+        Session session = sessionBuilder.openSession();
+        String hql = "from Cliente where email = :id and password = :password";
+        Query query = session.createQuery(hql);
+        query.setParameter("email", email);
+        query.setParameter("password", password);
+        Cliente cliente = (Cliente)query.uniqueResult();
+        if(cliente == null){
+            throw new AutobusesException(404, "No se han encontrado el cliente");
+        }
+        Hibernate.initialize(cliente.getTarjetas());
+        return cliente;
+    }
+    
+    
+    public void crearCuenta(SessionFactory sessionBuilder, Cliente cliente) throws HibernateException{
+        Session session = sessionBuilder.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            session.save(cliente);
+            session.getTransaction().commit();
+        }catch(HibernateException HE){
+            
+            if(tx != null){
+                tx.rollback();
+            }
+            throw HE;
+            
+        }finally{
+            session.close();
+        }
+    }
     
     
 }

@@ -232,12 +232,26 @@ while(comprasIt.hasNext()){
                     var xhttp = new XMLHttpRequest();
                     xhttp.onreadystatechange = function() {
                         if (this.readyState === 4 && this.status === 200) {
-                            Swal.fire({
-                                title: 'RESPUESTA SERVIDOR!',
-                                text: this.responseText,
-                                icon: 'info',
-                                confirmButtonText: 'Aceptar'
-                            });
+                            
+                            if(this.responseText.includes("OK")){
+                                Swal.fire({
+                                    title: 'PERFECTO',
+                                    text: 'Los pasajeros han sido guardados. En breves serás redireccionado al resumen.',
+                                    icon: 'success',
+                                    confirmButtonText: 'Aceptar'
+                                });
+                                setTimeout(function(){
+                                    location.href = "./resumen.jsp";
+                                }, 4000);
+                            }else{
+                                Swal.fire({
+                                    title: 'RESPUESTA SERVIDOR!',
+                                    text: this.responseText,
+                                    icon: 'info',
+                                    confirmButtonText: 'Aceptar'
+                                });
+                            }
+                            
                         }
                     };
                     xhttp.open("GET", "./guardarPasajeros?data=" + JSON.stringify(json), true);

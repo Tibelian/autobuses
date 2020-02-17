@@ -20,6 +20,14 @@
         <servlet-name>guardarPasajeros</servlet-name>
         <servlet-class>BLL.guardarPasajeros</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>iniciarSesion</servlet-name>
+        <servlet-class>BLL.iniciarSesion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>crearCuenta</servlet-name>
+        <servlet-class>BLL.crearCuenta</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>buscarViajes</servlet-name>
         <url-pattern>/buscarViajes</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>guardarPasajeros</servlet-name>
         <url-pattern>/guardarPasajeros</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>iniciarSesion</servlet-name>
+        <url-pattern>/iniciarSesion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>crearCuenta</servlet-name>
+        <url-pattern>/crearCuenta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
