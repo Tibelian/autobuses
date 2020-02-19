@@ -55,7 +55,7 @@ public class buscarViajes extends HttpServlet {
                     // se crea la sesión con los datos
                     HttpSession session = request.getSession(true);
                     session.setAttribute("reserva", reserva);
-                    session.setAttribute("pagina", "./viajes.jsp");
+                    session.setAttribute("pagina", "viajes.jsp");
 
                     // redirecciona a la vista
                     response.sendRedirect("./viajes.jsp");

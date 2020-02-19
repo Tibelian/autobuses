@@ -183,9 +183,17 @@ Reserva reserva = (Reserva)session.getAttribute("reserva");
             function confirmarPago(form, tarjeta, precio){
                 Swal.fire({
                     title: 'Escribe "CONFIRMAR"',
-                    icon: 'question',
+                    icon: 'info',
                     html: '<h5>Para completar el pago <strong>' + precio + ' €</strong> con la tarjeta <span class="text-uppercase">' + tarjeta + '</span></h5>',
-                    input: 'text',
+                    input: 'text', 
+                    inputAttributes: {
+                        maxlength: 10,
+                        autocapitalize: 'off',
+                        autocorrect: 'off',
+                        class: 'text-center'
+                    },
+                    confirmButtonText: 'Realizar pago',
+                    cancelButtonText: 'Cancelar',
                     showCancelButton: true,
                     inputValidator: (value) => {
                         if (value === "CONFIRMAR") {

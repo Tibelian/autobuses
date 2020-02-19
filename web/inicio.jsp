@@ -30,7 +30,7 @@ List<Estacion> listadoOrigen = (List)session.getAttribute("listadoOrigen");
             
             <!-- hacer un búsqueda -->
             <section class="row bg-img" style="background-image:url('./assets/img/bus1.jpg')"> 
-                <div class="container col-md-8 mx-auto">
+                <div class="container col-md-8 py-3 mx-auto">
                     <form class="text-white p-5 mx-auto" method="post" action="./buscarViajes">
                         <div class="text-center text-shadow mb-4">
                             <i class="fas fa-map-marked-alt fa-6x mb-2"></i>

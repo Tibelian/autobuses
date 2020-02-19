@@ -1,5 +1,5 @@
 package POJOS;
-// Generated 18-feb-2020 13:25:29 by Hibernate Tools 4.3.1
+// Generated 19-feb-2020 17:25:42 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -13,6 +13,7 @@ public class Compra  implements java.io.Serializable {
 
 
      private Integer id;
+     private Tarjeta tarjeta;
      private Viaje viaje;
      private Date fecha;
      private double importe;
@@ -24,14 +25,16 @@ public class Compra  implements java.io.Serializable {
     }
 
 	
-    public Compra(Viaje viaje, Date fecha, double importe, int viajeros, String localizador) {
+    public Compra(Tarjeta tarjeta, Viaje viaje, Date fecha, double importe, int viajeros, String localizador) {
+        this.tarjeta = tarjeta;
         this.viaje = viaje;
         this.fecha = fecha;
         this.importe = importe;
         this.viajeros = viajeros;
         this.localizador = localizador;
     }
-    public Compra(Viaje viaje, Date fecha, double importe, int viajeros, String localizador, Set ocupacions) {
+    public Compra(Tarjeta tarjeta, Viaje viaje, Date fecha, double importe, int viajeros, String localizador, Set ocupacions) {
+       this.tarjeta = tarjeta;
        this.viaje = viaje;
        this.fecha = fecha;
        this.importe = importe;
@@ -46,6 +49,13 @@ public class Compra  implements java.io.Serializable {
     
     public void setId(Integer id) {
         this.id = id;
+    }
+    public Tarjeta getTarjeta() {
+        return this.tarjeta;
+    }
+    
+    public void setTarjeta(Tarjeta tarjeta) {
+        this.tarjeta = tarjeta;
     }
     public Viaje getViaje() {
         return this.viaje;

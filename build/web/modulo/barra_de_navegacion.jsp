@@ -5,9 +5,9 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="ml-auto navbar-nav   ">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Inicio</a>
+        <ul class="ml-auto navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-question-circle"></i> Ayuda</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-toggle="langDropdown" aria-haspopup="true" aria-expanded="false">

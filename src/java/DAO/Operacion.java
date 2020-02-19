@@ -176,4 +176,22 @@ public class Operacion {
     }
     
     
+    public void guardarCompra(SessionFactory sessionBuilder, Compra compra) throws HibernateException{
+        Session session = sessionBuilder.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            session.save(compra);
+            session.getTransaction().commit();
+        }catch(HibernateException HE){
+            if(tx != null){
+                tx.rollback();
+            }
+            throw HE;
+        }finally{
+            session.close();
+        }
+    }
+    
+    
 }

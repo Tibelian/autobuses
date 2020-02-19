@@ -36,6 +36,10 @@
         <servlet-name>eliminarTarjeta</servlet-name>
         <servlet-class>BLL.eliminarTarjeta</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>confirmarPago</servlet-name>
+        <servlet-class>BLL.confirmarPago</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>buscarViajes</servlet-name>
         <url-pattern>/buscarViajes</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>eliminarTarjeta</servlet-name>
         <url-pattern>/eliminarTarjeta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>confirmarPago</servlet-name>
+        <url-pattern>/confirmarPago</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
