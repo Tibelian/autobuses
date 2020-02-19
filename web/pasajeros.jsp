@@ -25,6 +25,11 @@ Reserva reserva = (Reserva)session.getAttribute("reserva");
 DateFormat formatterFecha = new SimpleDateFormat("dd/MM/yyyy");
 String laFecha = formatterFecha.format(reserva.getFechaSalida());
 
+if(reserva.getViaje() == null){
+    response.sendRedirect((String)session.getAttribute("pagina"));
+    return;
+}
+
 ArrayList<Integer> ocupados = new ArrayList();
 Iterator comprasIt = reserva.getViaje().getCompras().iterator();
 while(comprasIt.hasNext()){
@@ -64,16 +69,19 @@ while(comprasIt.hasNext()){
             <!-- listado con asientos y pasajeros -->
             <section class="row justify-content-center"> 
                 <div class="col-12 p-3">
-                    <h2 class="text-center">
-                        <%= laFecha %> <br>
-                        <%= reserva.getRuta().getEstacionByIdOrigen().getNombre() %> 
-                        <i class="fas fa-arrow-right"></i> 
-                        <%= reserva.getRuta().getEstacionByIdDestino().getNombre() %>
-                    </h2>
+                    <h3 class="text-center">
+                        <span class="badge badge-secondary mb-2"><%= reserva.getRuta().getPrecio() %> € </span>
+                        <span class="badge badge-secondary mb-2"><%= laFecha %></span><br>
+                        <span class="badge badge-info">
+                            <%= reserva.getRuta().getEstacionByIdOrigen().getNombre() %> 
+                            <i class="fas fa-arrow-right"></i> 
+                            <%= reserva.getRuta().getEstacionByIdDestino().getNombre() %>
+                        </span>
+                    </h3>
                 </div>
-                <div class="col-11 p-3">
+                <div class="col-md-9 p-2 mb-3">
                     <div class="row justify-content-center">
-                        <p class="text-center">
+                        <p class="col-md-8 text-center">
                             <i class="fas fa-info-circle"></i>
                             A continuación, por favor arrastre el pasajero en el asiento que usted desea. Para introducir los datos del pasajero debe hacer click encima suya.
                         </p>
@@ -85,23 +93,31 @@ while(comprasIt.hasNext()){
                                 <div class="passager-data hide" id="passager-<%= i %>">
                                     <button type="button" class="close" onclick="openModal('passager-<%= i %>', <%= reserva.getPasajeros() %>)"><i class="fas fa-times"></i></button>
                                     <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="nombre-<%= i %>"><i class="far fa-user"></i> Nombre:</label>
-                                            <input class="dato-pasajero" type="text" id="nombre-<%= i %>" name="nombre[]">
+                                        <div class="form-group col">
+                                            <div class="input-group">
+                                                <label class="input-group-prepend" for="nombre-<%= i %>"><span class="input-group-text"><i class="far fa-user"></i>&nbsp;</span></label>
+                                                <input class="form-control" placeholder="Nombre" type="text" id="nombre-<%= i %>" name="nombre[]">
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="apellidos-<%= i %>"><i class="fas fa-user"></i> Apellidos:</label>
-                                            <input class="dato-pasajero" type="text" id="apellidos-<%= i %>" name="apellidos[]">
+                                        <div class="form-group col">
+                                            <div class="input-group">
+                                                <label class="input-group-prepend" for="apellidos-<%= i %>"><span class="input-group-text"><i class="fas fa-user"></i>&nbsp;</span></label>
+                                                <input class="form-control" placeholder="Apellidos" type="text" id="apellidos-<%= i %>" name="apellidos[]">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="dni-<%= i %>"><i class="fas fa-id-card"></i> DNI / NIE:</label>
-                                            <input maxlength="9" class="dato-pasajero" type="text" id="dni-<%= i %>" name="dni[]">
+                                        <div class="form-group col">
+                                            <div class="input-group">
+                                                <label class="input-group-prepend" for="dni-<%= i %>"><span class="input-group-text"><i class="fas fa-id-card"></i>&nbsp;</span></label>
+                                                <input maxlength="9" class="form-control" placeholder="DNI / NIE" type="text" id="dni-<%= i %>" name="dni[]">
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="asiento-<%= i %>"><i class="fas fa-chair"></i> Asiento:</label>
-                                            <input class="dato-pasajero" type="text" readonly id="asiento-<%= i %>" name="asiento[]" value="¡sin seleccionar!">
+                                        <div class="form-group col">
+                                            <div class="input-group">
+                                                <label class="input-group-prepend" for="asiento-<%= i %>"><span class="input-group-text"><i class="fas fa-chair"></i>&nbsp;</span></label>
+                                                <input class="form-control" type="text" readonly id="asiento-<%= i %>" name="asiento[]" value="¡asiento sin seleccionar!">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -121,11 +137,11 @@ while(comprasIt.hasNext()){
                                 }
                                 %>
                                 </div>
-                                <div class="bus">
+                                <div class="bus" style="width: calc(55px * <%= reserva.getViaje().getPlazas() %>)">
                                     <div class="wheel w-1"></div>
                                     <div class="wheel w-2"></div>
                                 <%
-                                for(int asiento = 1; asiento < reserva.getViaje().getPlazas(); asiento++){
+                                for(int asiento = 1; asiento <= reserva.getViaje().getPlazas(); asiento++){
 
                                     boolean ocupado = false;
                                     for(int n = 1; n <= ocupados.size(); n++){
@@ -151,7 +167,7 @@ while(comprasIt.hasNext()){
                                 </div>
                             </div>
 
-                            <button class="btn btn-primary" type="submit">Guardar pasajeros</button>
+                            <button class="w-100 btn btn-primary" type="submit">Guardar pasajeros</button>
                         </form> 
                     </div>
                 </div>

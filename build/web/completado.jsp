@@ -16,7 +16,8 @@ if(
     session.getAttribute("compra") == null
 ){
     if(session.getAttribute("pagina") != null){
-        session.setAttribute("pagina", null);
+        response.sendRedirect((String)session.getAttribute("pagina"));
+        return;
     }
     response.sendRedirect("./");
     return;
@@ -51,18 +52,14 @@ String laFecha = formatterFecha.format(reserva.getFechaSalida());
                 <jsp:include page="./modulo/pasos.jsp" />
             </section>
             
-            <section class="row justify-content-center"> 
+            <section class="row justify-content-center align-items-center py-4"> 
                 
                 <div class="col-md-9">
-                    <i class="text-center fas fa-thumbs-up display-4" style="color: rgba(0,0,0,.4);"></i>
                     <h1 class="text-center price h2">
                         ¡GRACIAS POR CONFIAR EN NOSOTROS!
                     </h1> 
                 </div> 
-                    
-                <div class="col-md-9">
-                </div>
-                        
+                
             </section>
             
         </main>
@@ -71,7 +68,7 @@ String laFecha = formatterFecha.format(reserva.getFechaSalida());
         <script src="./assets/js/jquery-3.4.1.min.js"></script>
         <script src="./assets/js/popper.min.js"></script>
         <script src="./assets/js/bootstrap.min.js"></script>
-        <script src="./assets/js/owl.carousel.min.js"></script>
+        <script src="./assets/js/sweetalert2@9.js"></script>
         <script src="./assets/js/main.js"></script>
         
     </body>

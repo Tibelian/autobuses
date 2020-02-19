@@ -73,7 +73,7 @@ List<Estacion> listadoOrigen = (List)session.getAttribute("listadoOrigen");
                                     <div class="form-group col mb-0">
                                         <div class="input-group">
                                             <label title="Cantidad de pasajeros" class="input-group-prepend mb-0" for="pasajeros"><span class="input-group-text"><i class="fas fa-users"></i></span></label>
-                                            <input class="form-control" type="number" name="pasajeros" id="pasajeros" required value="1">
+                                            <input class="form-control" type="number" name="pasajeros" id="pasajeros" required value="1" max="20" min="1">
                                         </div>
                                     </div>
                                 </div>
@@ -148,6 +148,7 @@ List<Estacion> listadoOrigen = (List)session.getAttribute("listadoOrigen");
         <script src="./assets/js/jquery-3.4.1.min.js"></script>
         <script src="./assets/js/popper.min.js"></script>
         <script src="./assets/js/bootstrap.min.js"></script>
+        <script src="./assets/js/sweetalert2@9.js"></script>
         <script src="./assets/js/main.js"></script>
         <script>
             var fecha = new Date();

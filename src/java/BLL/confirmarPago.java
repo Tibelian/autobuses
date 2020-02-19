@@ -51,6 +51,11 @@ public class confirmarPago extends HttpServlet {
                         compra.setViajeros(reserva.getViajeros().size());
                         compra.setLocalizador(Localizador.generar(8)); // genera un string aleatorio de 8 carácteres
                         
+                        // resta plazas disponibles
+                        compra.getViaje().setPlazasDisponibles(
+                            compra.getViaje().getPlazasDisponibles() - compra.getViajeros()
+                        );
+                        
                         Iterator itTarjetas = cliente.getTarjetas().iterator();
                         while (itTarjetas.hasNext()) {
                             Tarjeta xTarjeta = (Tarjeta) itTarjetas.next();

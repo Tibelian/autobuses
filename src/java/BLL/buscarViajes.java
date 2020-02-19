@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 
 public class buscarViajes extends HttpServlet {
@@ -64,6 +65,8 @@ public class buscarViajes extends HttpServlet {
                     out.println("ERROR DATE");
                 } catch (AutobusesException ex) {
                     response.sendRedirect("./error.jsp?code=viaje-404");
+                } catch(HibernateException hx){
+                    out.println("EXCEPTION HIBERNATE: " + hx.getMessage());
                 }
 
             }else{

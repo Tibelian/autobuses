@@ -1,5 +1,5 @@
 package POJOS;
-// Generated 19-feb-2020 17:25:42 by Hibernate Tools 4.3.1
+// Generated 19-feb-2020 19:59:24 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -16,21 +16,24 @@ public class Viaje  implements java.io.Serializable {
      private Horario horario;
      private Date fecha;
      private int plazas;
+     private int plazasDisponibles;
      private Set compras = new HashSet(0);
 
     public Viaje() {
     }
 
 	
-    public Viaje(Horario horario, Date fecha, int plazas) {
+    public Viaje(Horario horario, Date fecha, int plazas, int plazasDisponibles) {
         this.horario = horario;
         this.fecha = fecha;
         this.plazas = plazas;
+        this.plazasDisponibles = plazasDisponibles;
     }
-    public Viaje(Horario horario, Date fecha, int plazas, Set compras) {
+    public Viaje(Horario horario, Date fecha, int plazas, int plazasDisponibles, Set compras) {
        this.horario = horario;
        this.fecha = fecha;
        this.plazas = plazas;
+       this.plazasDisponibles = plazasDisponibles;
        this.compras = compras;
     }
    
@@ -61,6 +64,13 @@ public class Viaje  implements java.io.Serializable {
     
     public void setPlazas(int plazas) {
         this.plazas = plazas;
+    }
+    public int getPlazasDisponibles() {
+        return this.plazasDisponibles;
+    }
+    
+    public void setPlazasDisponibles(int plazasDisponibles) {
+        this.plazasDisponibles = plazasDisponibles;
     }
     public Set getCompras() {
         return this.compras;

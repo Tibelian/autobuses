@@ -129,6 +129,16 @@ function registro(){
     });
 }
 
+function lostpw(){
+    Swal.fire({
+        title: 'Contraseña olvidada',
+        text: 'hey',
+        showCloseButton: true,
+        showCancelButton: false,
+        showConfirmButton: false
+    });
+}
+
 
 
 

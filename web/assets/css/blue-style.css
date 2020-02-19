@@ -33,69 +33,12 @@ body{
 }
 
 
-/*
-migas de pan
-*/
-.navigation{
-    display: flex;
-    justify-content: center;
-}
-.navigation ul{
-    display: flex;
-    justify-content: center;
-    border-collapse: collapse;
-    border-radius: 10px;
-    padding: 0;
-}
-.navigation ul li{
-    display: flex;
-    border: 1px solid var(--indigo);
-}
-.navigation ul li:first-child{
-    border-radius: 10px 0 0 10px;
-}
-.navigation ul li:last-child{
-    border-radius: 0 10px 10px 0;
-}
-.navigation ul li a.active{
-    background-color: var(--indigo)!important;
-    color: #fff;
-}
-.navigation ul li a{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;  
-    color: #000;
-    text-decoration: none;
-}
-.navigation ul li:hover{
-    background-color: rgba(0, 0, 0, .1);
-}
-.navigation ul li a.active span{
-    background-color: #fff!important;
-    color: var(--indigo);
-}
-.navigation ul li a span{
-    background-color: var(--indigo);
-    color: #fff;
-    border-radius: 50%;
-    width: 15px;
-    height: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 5px;
-    font-size: 12px;
-}
-
-
 /* pasajero */
 .passager button{
     border: 0;
     font-size: 13px;
     padding: 5px;
-    background-color: var(--indigo);
+    background-color: var(--info);
     color: #fff;
     width: 100%;
     height: 30px;
@@ -104,7 +47,7 @@ migas de pan
 }
 .passager-data{
     background-color: #d9d9d9;
-    border: 1px solid var(--indigo);
+    border: 1px solid var(--info);
     position: relative;
 }
 .passager-data.show{
@@ -118,7 +61,7 @@ migas de pan
 .passager-data.show{
     opacity: 1;
     visibility: visible;
-    height: 165px;
+    height: 140px;
     transition: all 1s;
     margin-bottom: 15px;
 }
@@ -132,29 +75,11 @@ migas de pan
     font-size: 15px;
     border-radius: 50%;
 }
-
-.passager label{
-    padding-left: 5px;
-}
-.passager input{
-    background-color: #f9f9f9;
-    border: 1px solid #c9c9c9;
-    font-size: 13px;
-    padding: 5px;
-    height: 30px;
-    min-height: 30px;
-}
 .passager button{
     margin-top: auto;
 }
-.passager input:read-only{
-    border-color: transparent !important;
-    background-color: transparent !important;
-}
-.passager input:-moz-read-only{
-    border-color: transparent !important;
-    background-color: transparent !important;
-}
+
+
 
 
 /*
@@ -203,6 +128,7 @@ DRAG AND DROP
     position: relative;
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column-reverse;
     border-radius: 20px 5px 5px 20px;
     box-shadow: 0 0 5px 5px rgba(0,0,0,.1);
     z-index: 1;
@@ -214,8 +140,8 @@ DRAG AND DROP
     left: 20px;
     width: 50px;
     height: 50px;
-    background-color: var(--indigo);
-    font-size: 8px;
+    background-color: var(--info);
+    font-size: 7px;
     color: #fff;
     display: flex;
     justify-content: center;
@@ -292,47 +218,15 @@ DRAG AND DROP
 }
 
 
-.summary ul{
-    list-style-type: none;
-    margin: 5px;
-    position: relative;
-    background-color: #d9d9d9;
-    border: 1px solid var(--indigo);
-}
-.summary ul li{
-    padding: 5px;
-}
-
-.summary-travel{
-    margin-bottom: 10px!important;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.summary-travel li{
-    width: 50%;
-    text-align: center;
-}
-.summary-passenger{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-.summary-passenger ul{
-    width: 48%;
-}
-
-
-.price{
-    padding: 10px;
-    margin: 5px;
-    color: var(--indigo);
-}
-
 .avatar{
     position: absolute;
     right: 15px;
     top: 15px;
+    bottom: 15px;
+    z-index: 2;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
 }
 .avatar i{
     color: rgba(0, 0, 0, .1);
@@ -367,7 +261,7 @@ DRAG AND DROP
 
 
 /*
-DETALLES BOOTSTRAP
+DETALLES BOOTSTRAP Y OWL CAROUSEL
 */
 .btn, .form-control{
     box-shadow: inset 0 0 5px 1px rgba(0, 0, 0, .1);
@@ -375,7 +269,10 @@ DETALLES BOOTSTRAP
 nav{
     box-shadow: 0 0 5px 5px rgba(0, 0, 0, .1);
 }
-
+.owl-stage-outer {
+    display: flex;
+    justify-content: center;
+}
 
 
 
@@ -398,10 +295,10 @@ nav{
     position: relative;
     text-align: center;
     text-transform: uppercase;
-    color: var(--success);
 }
 .progressbar li a {
     text-decoration: none!important;
+    color: var(--secondary);
 }
 .progressbar li i {
     width: 50px;
@@ -409,7 +306,7 @@ nav{
     content: counter(step);
     counter-increment: step;
     line-height: 50px;
-    border: 2px solid var(--success);
+    border: 2px solid var(--secondary);
     display: block;
     text-align: center;
     margin: 0 auto 10px auto;
@@ -422,7 +319,7 @@ nav{
     height: 2px;
     content: '';
     position: absolute;
-    background-color: var(--success);
+    background-color: var(--secondary);
     top: 25px;
     left: -50%;
     z-index: -1;
@@ -431,12 +328,12 @@ nav{
     content: none;
 }
 .progressbar li.active a{
-    color: var(--danger)!important;
+    color: var(--primary)!important;
 }
 .progressbar li.active i {
-    border-color: var(--danger) !important;
-    box-shadow: 0 0 5px 5px rgba(0,0,0,.2);
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 5px 5px rgba(0,0,0,.05);
 }
 .progressbar li.active + li:after {
-    background-color: var(--danger) !important;
+    background-color: var(--primary) !important;
 }

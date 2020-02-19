@@ -24,6 +24,12 @@ if(request.getParameter("ok") != null){
     session.setAttribute("pagina", "pagar.jsp");
 }
 Reserva reserva = (Reserva)session.getAttribute("reserva");
+
+if(reserva.getViajeros() == null){
+    response.sendRedirect((String)session.getAttribute("pagina"));
+    return;
+}
+
 %>
 <!DOCTYPE html>
 <html>

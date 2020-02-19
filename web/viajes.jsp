@@ -47,16 +47,19 @@ String laFecha = formatterFecha.format(reserva.getFechaSalida());
             </section>
             
             <!-- listado con viajes disponibles -->
-            <section class="row"> 
+            <section class="row justify-content-center"> 
                 <div class="col-12 p-3">
-                    <h2 class="text-center">
-                        <%= laFecha %> <br>
-                        <%= reserva.getRuta().getEstacionByIdOrigen().getNombre() %> 
-                        <i class="fas fa-arrow-right"></i> 
-                        <%= reserva.getRuta().getEstacionByIdDestino().getNombre() %>
-                    </h2>
+                    <h3 class="text-center">
+                        <span class="badge badge-secondary mb-2"><%= reserva.getRuta().getPrecio() %> € </span>
+                        <span class="badge badge-secondary mb-2"><%= laFecha %></span><br>
+                        <span class="badge badge-info">
+                            <%= reserva.getRuta().getEstacionByIdOrigen().getNombre() %> 
+                            <i class="fas fa-arrow-right"></i> 
+                            <%= reserva.getRuta().getEstacionByIdDestino().getNombre() %>
+                        </span>
+                    </h3>
                 </div>
-                <div class="col-11 p-3">
+                <div class="col-md-9 p-2 mb-3">
                     <div class="owl-carousel row justify-content-center" id="owl-list">
                         <%
                         int count = 0;
@@ -76,16 +79,22 @@ String laFecha = formatterFecha.format(reserva.getFechaSalida());
                                     String llegada = formatter.format(new Date(llegadaTime));
                                 %>
                             <div class="item col bg-white shadow m-3 p-3">
-                                <h3 class="text-center mb-3 border-bottom"><%= horario.getRuta().getPrecio() %> €</h3>
+                                <h4 class="text-center mb-3 border-bottom">Salida: <strong><%= hora %></strong></h4>
                                 <ul>
-                                    <li>Hora salida: <%= hora %></li>
-                                    <li>Hora llegada: ~<%= llegada %></li>
-                                    <li>Duración: <%= formatter.format(reserva.getRuta().getDuracion()) %></li>
-                                    <li>Distancia: <%= reserva.getRuta().getKilometros()%> km</li>
+                                    <li>Llegada: <strong>~<%= llegada %></strong></li>
+                                    <li>Duración: <strong><%= formatter.format(reserva.getRuta().getDuracion()) %></strong></li>
+                                    <li>Distancia: <strong><%= reserva.getRuta().getKilometros()%> km</strong></li>
+                                    <li>Plazas disponibles: <strong><%= viaje.getPlazasDisponibles()%></strong></li>
                                 </ul>
+                                <%
+                                String disabled = "";
+                                if(viaje.getPlazasDisponibles() < reserva.getPasajeros()){
+                                    disabled = "disabled";
+                                }
+                                %>
                                 <form class="w-100 d-flex justify-content-center" action="./elegirViaje" method="post">
                                     <input type="hidden" name="viaje" value="<%= viaje.getId() %>">
-                                    <button class="btn btn-primary" type="submit">Elegir viaje</button>
+                                    <button class="btn btn-primary <%= disabled %>" <%= disabled %> type="submit">Elegir viaje</button>
                                 </form>
                             </div>
                                 <%
@@ -114,6 +123,7 @@ String laFecha = formatterFecha.format(reserva.getFechaSalida());
         <script src="./assets/js/popper.min.js"></script>
         <script src="./assets/js/bootstrap.min.js"></script>
         <script src="./assets/js/owl.carousel.min.js"></script>
+        <script src="./assets/js/sweetalert2@9.js"></script>
         <script src="./assets/js/main.js"></script>
         <script>
 
@@ -121,9 +131,12 @@ String laFecha = formatterFecha.format(reserva.getFechaSalida());
                 items: 2,
                 loop: false,
                 margin: 30,
+                nav: true,
+		lazyLoad:true,
+		dots: true,
                 responsive:{
                     600:{
-                        items: 4
+                        items: 3
                     }
                 }
             });
