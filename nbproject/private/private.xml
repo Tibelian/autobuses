@@ -5,18 +5,16 @@
             <url>web/pasajeros.jsp</url>
             <bookmark id="1">
                 <name/>
-                <line>80</line>
+                <line>48</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/dev/autobuses/src/java/DAO/Operacion.java</file>
-            <file>file:/C:/xampp/htdocs/dev/autobuses/web/assets/css/style.css</file>
-            <file>file:/C:/xampp/htdocs/dev/autobuses/src/java/BLL/iniciarSesion.java</file>
-            <file>file:/C:/xampp/htdocs/dev/autobuses/src/java/BLL/crearCuenta.java</file>
+            <file>file:/C:/xampp/htdocs/dev/autobuses/web/viajes.jsp</file>
             <file>file:/C:/xampp/htdocs/dev/autobuses/web/pagar.jsp</file>
+            <file>file:/C:/xampp/htdocs/dev/autobuses/web/assets/css/blue-style.css</file>
             <file>file:/C:/xampp/htdocs/dev/autobuses/web/resumen.jsp</file>
         </group>
     </open-files>

@@ -1,5 +1,5 @@
 package POJOS;
-// Generated 03-feb-2020 12:53:13 by Hibernate Tools 4.3.1
+// Generated 18-feb-2020 13:25:29 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -17,7 +17,6 @@ public class Viaje  implements java.io.Serializable {
      private Date fecha;
      private int plazas;
      private Set compras = new HashSet(0);
-     private Set viajeros = new HashSet(0);
 
     public Viaje() {
     }
@@ -28,12 +27,11 @@ public class Viaje  implements java.io.Serializable {
         this.fecha = fecha;
         this.plazas = plazas;
     }
-    public Viaje(Horario horario, Date fecha, int plazas, Set compras, Set viajeros) {
+    public Viaje(Horario horario, Date fecha, int plazas, Set compras) {
        this.horario = horario;
        this.fecha = fecha;
        this.plazas = plazas;
        this.compras = compras;
-       this.viajeros = viajeros;
     }
    
     public Integer getId() {
@@ -70,13 +68,6 @@ public class Viaje  implements java.io.Serializable {
     
     public void setCompras(Set compras) {
         this.compras = compras;
-    }
-    public Set getViajeros() {
-        return this.viajeros;
-    }
-    
-    public void setViajeros(Set viajeros) {
-        this.viajeros = viajeros;
     }
 
 

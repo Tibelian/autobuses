@@ -32,7 +32,7 @@ public class iniciarSesion extends HttpServlet {
             if(request.getParameter("email") != null && request.getParameter("password") != null){
             
                 String email = request.getParameter("email");
-                String password = MyHash.encriptar(request.getParameter("password"));
+                String password = MyHash.sha1(request.getParameter("password"));
                 
                 try{
                     

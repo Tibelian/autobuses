@@ -1,5 +1,5 @@
 package POJOS;
-// Generated 03-feb-2020 12:53:13 by Hibernate Tools 4.3.1
+// Generated 18-feb-2020 13:25:29 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -12,7 +12,6 @@ public class Viajero  implements java.io.Serializable {
 
 
      private Integer id;
-     private Viaje viaje;
      private String dni;
      private String nombre;
      private String apellidos;
@@ -23,15 +22,13 @@ public class Viajero  implements java.io.Serializable {
     }
 
 	
-    public Viajero(Viaje viaje, String dni, String nombre, String apellidos, int asiento) {
-        this.viaje = viaje;
+    public Viajero(String dni, String nombre, String apellidos, int asiento) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.asiento = asiento;
     }
-    public Viajero(Viaje viaje, String dni, String nombre, String apellidos, int asiento, Set ocupacions) {
-       this.viaje = viaje;
+    public Viajero(String dni, String nombre, String apellidos, int asiento, Set ocupacions) {
        this.dni = dni;
        this.nombre = nombre;
        this.apellidos = apellidos;
@@ -45,13 +42,6 @@ public class Viajero  implements java.io.Serializable {
     
     public void setId(Integer id) {
         this.id = id;
-    }
-    public Viaje getViaje() {
-        return this.viaje;
-    }
-    
-    public void setViaje(Viaje viaje) {
-        this.viaje = viaje;
     }
     public String getDni() {
         return this.dni;

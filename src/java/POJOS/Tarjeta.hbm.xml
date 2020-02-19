@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 03-feb-2020 12:53:14 by Hibernate Tools 4.3.1 -->
+<!-- Generated 18-feb-2020 13:25:30 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="POJOS.Tarjeta" table="tarjeta" catalog="es_autobus" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">
@@ -14,8 +14,8 @@
         <property name="tipo" type="string">
             <column name="tipo" length="50" not-null="true" />
         </property>
-        <property name="numero" type="int">
-            <column name="numero" not-null="true" />
+        <property name="numero" type="binary">
+            <column name="numero" not-null="true" read="AES_DECRYPT(numero, 'MyCoolBus')" write="AES_ENCRYPT(?, 'MyCoolBus')" />
         </property>
         <property name="caducidad" type="date">
             <column name="caducidad" length="10" not-null="true" />

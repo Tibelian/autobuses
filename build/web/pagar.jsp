@@ -1,4 +1,7 @@
 
+<%@page import="java.nio.charset.StandardCharsets"%>
+<%@page import="POJOS.Tarjeta"%>
+<%@page import="java.util.Iterator"%>
 <%@page import="POJOS.Cliente"%>
 <%@page import="POJOS.Viajero"%>
 <%@page import="java.util.ArrayList"%>
@@ -16,149 +19,181 @@ if(session.getAttribute("reserva") == null){
     }
     response.sendRedirect("./");
     return;
+}   
+if(request.getParameter("ok") != null){
+    session.setAttribute("pagina", "pagar.jsp");
 }
 Reserva reserva = (Reserva)session.getAttribute("reserva");
-DateFormat formatterFecha = new SimpleDateFormat("dd/MM/yyyy");
-String laFecha = formatterFecha.format(reserva.getFechaSalida());
 %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="./assets/css/all.min.css"/>
-        <link rel="stylesheet" href="./assets/css/style.css"/>
-        <script src="./assets/js/jquery-3.4.1.min.js"></script>
-        <script src="./assets/js/sweetalert2@9.js"></script
-        <script src="./assets/js/swal-forms.js"></script>
-        <script src="./assets/js/main.js"></script>
+        <link rel="stylesheet" href="./assets/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="./assets/css/card.css"/>
+        <link rel="stylesheet" href="./assets/css/blue-style.css"/>
         <title>Todos los viajes de una ruta</title>
     </head>
     <body>
         
-        <header>
-            <img class="logo" src="./assets/img/logo.png" alt="logo" width="auto" />
-            <nav class="ml-auto">
-                <ul>
-                    <li><a href="#">Iniciar sesión</a></li>
-                    <li><a href="#">Idioma</a></li>
-                </ul>
-            </nav>
+        <!-- barra de navegación -->
+        <header class="container-fuild">
+            <jsp:include page="./modulo/barra_de_navegacion.jsp" />
         </header>
         
-        <main>
+        <!-- contenido principal -->
+        <main class="container-fluid">
             
-            <section class="bg-opacity bg-img" style="background-image:url('./assets/img/bus2.jpg');align-items: center"> 
-               
-                <div class="bg-white p-30" style="margin:auto;border-radius:10px;">
-                    <div class="navigation">
-                        <ul>
-                            <li><a href="./inicio.jsp"><i class="fas fa-home"></i></a></li>
-                            <li><a href="./viajes.jsp"><span>1</span> Viaje</a></li>
-                            <li><a href="./pasajeros.jsp"><span>2</span> Pasajeros</a></li>
-                            <li><a href="./resumen.jsp"><span>3</span> Resumen</a></li>
-                            <li><a class="active" href="#"><span>4</span> Pago</a></li>
-                            <li><a href="#"><span>5</span> Completado</a></li>
-                        </ul>
-                    </div>
+            <!-- todos los pasos para completar la operación -->
+            <section class="row"> 
+                <jsp:include page="./modulo/pasos.jsp" />
+            </section>
+            
+            <section class="row justify-content-center mt-3"> 
                     
+                <div class="col-md-6">
                     <%
                     if(session.getAttribute("cliente") == null){
                     %>
-                    <div style="display:flex; justify-content:space-around; margin-top: 10px;">
-                        <button onclick="registro()" class="submit">Crear cuenta</button>
-                        <button onclick="login()" class="submit">Iniciar sesión</button>
-                    </div>
+                        <div class="d-flex justify-content-center">
+                            <i class="text-center fas fa-exclamation-triangle fa-4x" style="color:rgba(0,0,0,.3);"></i>
+                            <h3 class="text-center">Hemos detectado que todavía no te has identificado para realizar el pago.</h3>
+                        </div>                    
+                        <div class="d-flex justify-content-around mt-3">
+                            <button class="btn btn-outline-primary" onclick="registro()">Crear cuenta</button>
+                            <button class="btn btn-primary" onclick="login()">Iniciar sesión</button>
+                        </div>
                     <%
                     }else{
                         Cliente cliente = (Cliente)session.getAttribute("cliente");
-                        if(cliente.getTarjetas().size() == 0){
-                        %>
-                        AGREGAR TARJETA NUEVA
+                        if(request.getParameter("account-created") != null){
+                        %>  
+                        <div class="d-flex justify-content-center">
+                            <i class="text-center fas fa-check-circle fa-4x" style="color:rgba(0,0,0,.3);"></i>
+                            <h3 class="text-center">La cuenta ha sido creada con éxito y ha iniciado sesión automáticamente</h3>
+                        </div>
                         <%
+                        }
+
+                        if(cliente.getTarjetas().size() == 0 || request.getParameter("nueva-tarjeta") != null){
+                        %>
+                        <!-- agregar una tarjeta nueva -->
+                        <div class="p-4 bg-white shadow-sm rounded">
+                            <div class="d-flex flex-wrap justify-content-center">
+                                <h3 class="w-100 text-center">Introduzca los datos de su tarjeta bancaria:</h3>
+                                <jsp:include page="./modulo/agregar_tarjeta.jsp" />
+                            </div>
+                        </div>
+                        <%
+                            if(request.getParameter("nueva-tarjeta") != null){
+                            %>
+                            <div class="d-flex my-4 justify-content-center">
+                                <a class='btn btn-sm btn-danger' href='./pagar.jsp'>Cancelar</a>
+                            </div>
+                            <%
+                            }
                         }else{
                         %>
-                        MOSTRAR TARJETAS Y BOTON PARA AGREGAR UNA NUEVA
+                        <!-- elegir tarjeta y/o agrear una nueva -->
+                        <a class="w-100 btn btn-sm btn-outline-primary" href="./pagar.jsp?nueva-tarjeta=1"><i class="fas fa-plus-circle"></i> Añadir nueva tarjeta</a>
+                        <table class="table table-light shadow-sm table-hover my-3">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Últimos dígitos</th>
+                                    <th>Caducidad</th>
+                                    <th>Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                                Iterator itTarjeta = cliente.getTarjetas().iterator();
+                                while(itTarjeta.hasNext()){
+                                    Tarjeta tarjeta = (Tarjeta)itTarjeta.next();
+                                    String digitos = new String(tarjeta.getNumero(), StandardCharsets.UTF_8);
+                                %>
+                                <tr>
+                                    <td class="align-middle text-uppercase"><%= tarjeta.getTipo() %></td>
+                                    <td class="align-middle">•••• •••• •••• •••• <%= digitos.substring(digitos.length() - 4) %></td>
+                                    <td class="align-middle"><%= new SimpleDateFormat("MM/yyyy").format(tarjeta.getCaducidad()) %></td>
+                                    <td class="align-middle d-flex">
+                                        <form onsubmit="confirmarEliminar(this); return false;" method="post" action="./eliminarTarjeta?id=<%= tarjeta.getId() %>">
+                                            <button title="Haga click para eliminar tarjeta de crédito" class="btn btn-sm btn-danger" type="submit"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                        <form id="form-<%= tarjeta.getId() %>" onsubmit="confirmarPago(this, '<%= tarjeta.getTipo() %>', <%= reserva.getRuta().getPrecio() * reserva.getViajeros().size() %>); return false;" method="post" action="./confirmarPago?id=<%= tarjeta.getId() %>">
+                                            <button class="mx-2 btn btn-sm btn-primary" type="submit"><i class="fas fa-check"></i> PAGAR</button>
+                                        </form>
+                                    </td>
+                                </tr> 
+                                <%
+                                }
+                                %>
+                            </tbody>
+                        </table>
                         <%
                         }
                     }
                     %>
-                    
                 </div>
-                     
-                        
-
+                    
             </section>
             
         </main>
 
+        <script src="./assets/js/jquery-3.4.1.min.js"></script>
+        <script src="./assets/js/popper.min.js"></script>
+        <script src="./assets/js/bootstrap.min.js"></script>
+        <script src="./assets/js/sweetalert2@9.js"></script>
+        <script src="./assets/js/card.js"></script>
+        <script src="./assets/js/main.js"></script>
         <script>
-            function login(){
+            <%
+            if(request.getParameter("msg") != null){
+                String msg = request.getParameter("msg");
+                if(msg.equals("eliminar-tarjeta-ok")){
+            %>
+                    Swal.fire({
+                        title: '¡Tarjeta eliminada!',
+                        text: 'La tarjeta se ha eliminado con éxito',
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    });
+            <%
+                }
+            }
+            %>
+            
+            function confirmarEliminar(form){
                 Swal.fire({
-                    title: 'Iniciar sesión',
-                    html: `
-                        <form method="post" action="./iniciarSesion">
-                            <input type="hidden" name="redirect" value="pagar.jsp">
-                            <div class="form-group">
-                                <label for="email"><i class="fas fa-envelope"></i> Correo electrónico:</label>
-                                <input type="text" id="email" name="email">
-                            </div>
-                            <div class="form-group">
-                                <label for="password"><i class="fas fa-key"></i> Contraseña:</label>
-                                <input type="password" id="password" name="password">
-                            </div>
-                            <div class="form-row fcenter">
-                                <button type="submit"><i class="fas fa-sign-in-alt"></i> Entrar</button>
-                            </div>
-                        </form>
-                    `,
-                    showCloseButton: true,
-                    showCancelButton: false,
-                    showConfirmButton: false
+                    title: '¿Está usted seguro?',
+                    text: 'Una vez eliminada la tarjeta ya no podrá utilizarla. Le recomendamos que por lo menos tenga una tarjeta guardada para futuras compras, de este modo facilitandole la compra.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, quiero eliminarla',
+                    cancelButtonText: 'No, mejor no'
+                }).then((result) => {
+                    if(result.value){
+                        form.submit();
+                    }
                 });
             }
             
-            function registro(){
+            
+            function confirmarPago(form, tarjeta, precio){
                 Swal.fire({
-                    title: 'Crear cuenta',
-                    html: `
-                        <form method="post" action="./crearCuenta">
-                            <input type="hidden" name="redirect" value="pagar.jsp">
-                            <div class="form-group">
-                                <label for="email"><i class="fas fa-envelope"></i> Correo electrónico:</label>
-                                <input type="text" id="email" name="email">
-                            </div>
-                            <div class="form-group">
-                                <label for="password"><i class="fas fa-key"></i> Contraseña:</label>
-                                <input type="password" id="password" name="password">
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="nombre"><i class="fas fa-user"></i> Nombre:</label>
-                                    <input type="text" id="nombre" name="nombre">
-                                </div>
-                                <div class="form-group">
-                                    <label for="apellidos"><i class="far fa-user"></i> Apellidos:</label>
-                                    <input type="text" id="apellidos" name="apellidos">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="dni"><i class="fas fa-id-card"></i> DNI:</label>
-                                    <input onchange="validarRegistroDni()" type="text" id="dni" name="dni">
-                                </div>
-                                <div class="form-group">
-                                    <label for="telefono"><i class="fas fa-phone"></i> Teléfono:</label>
-                                    <input type="number" id="telefono" name="telefono">
-                                </div>
-                            </div>
-                            <div class="form-row fcenter">
-                                <button type="submit"><i class="fas fa-user-plus"></i> Registrarse</button>
-                            </div>
-                        </form>
-                    `,
-                    showCloseButton: true,
-                    showCancelButton: false,
-                    showConfirmButton: false
+                    title: 'Escribe "CONFIRMAR"',
+                    icon: 'question',
+                    html: '<h5>Para completar el pago <strong>' + precio + ' €</strong> con la tarjeta <span class="text-uppercase">' + tarjeta + '</span></h5>',
+                    input: 'text',
+                    showCancelButton: true,
+                    inputValidator: (value) => {
+                        if (value === "CONFIRMAR") {
+                            form.submit();
+                        }else{
+                            return '¡Debes confirmar la compra!'
+                        }
+                    }
                 });
             }
         </script>

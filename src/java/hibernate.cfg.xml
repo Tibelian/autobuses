@@ -9,13 +9,13 @@
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.show_sql">true</property>
     <mapping resource="POJOS/Horario.hbm.xml"/>
-    <mapping resource="POJOS/Ruta.hbm.xml"/>
-    <mapping resource="POJOS/Ocupacion.hbm.xml"/>
-    <mapping resource="POJOS/Cliente.hbm.xml"/>
-    <mapping resource="POJOS/Viajero.hbm.xml"/>
     <mapping resource="POJOS/Tarjeta.hbm.xml"/>
-    <mapping resource="POJOS/Compra.hbm.xml"/>
-    <mapping resource="POJOS/Viaje.hbm.xml"/>
+    <mapping resource="POJOS/Viajero.hbm.xml"/>
+    <mapping resource="POJOS/Ocupacion.hbm.xml"/>
     <mapping resource="POJOS/Estacion.hbm.xml"/>
+    <mapping resource="POJOS/Ruta.hbm.xml"/>
+    <mapping resource="POJOS/Viaje.hbm.xml"/>
+    <mapping resource="POJOS/Compra.hbm.xml"/>
+    <mapping resource="POJOS/Cliente.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

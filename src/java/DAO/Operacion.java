@@ -6,6 +6,7 @@ import POJOS.Cliente;
 import POJOS.Compra;
 import POJOS.Horario;
 import POJOS.Ruta;
+import POJOS.Tarjeta;
 import POJOS.Viaje;
 import java.util.Iterator;
 import java.util.List;
@@ -104,7 +105,7 @@ public class Operacion {
     
     public Cliente iniciarSesion(SessionFactory sessionBuilder, String email, String password) throws AutobusesException{
         Session session = sessionBuilder.openSession();
-        String hql = "from Cliente where email = :id and password = :password";
+        String hql = "from Cliente where email = :email and clave = :password";
         Query query = session.createQuery(hql);
         query.setParameter("email", email);
         query.setParameter("password", password);
@@ -131,6 +132,44 @@ public class Operacion {
             }
             throw HE;
             
+        }finally{
+            session.close();
+        }
+    }
+    
+    
+    public void agregarTarjeta(SessionFactory sessionBuilder, Tarjeta tarjeta) throws HibernateException{
+        Session session = sessionBuilder.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            session.save(tarjeta);
+            session.getTransaction().commit();
+        }catch(HibernateException HE){
+            
+            if(tx != null){
+                tx.rollback();
+            }
+            throw HE;
+            
+        }finally{
+            session.close();
+        }
+    }
+    
+    
+    public void eliminarTarjeta(SessionFactory sessionBuilder, Tarjeta tarjeta) throws HibernateException{
+        Session session = sessionBuilder.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            session.delete(tarjeta);
+            session.getTransaction().commit();
+        }catch(HibernateException HE){
+            if(tx != null){
+                tx.rollback();
+            }
+            throw HE;
         }finally{
             session.close();
         }

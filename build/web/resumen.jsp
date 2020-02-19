@@ -27,43 +27,34 @@ String laFecha = formatterFecha.format(reserva.getFechaSalida());
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="./assets/css/all.min.css"/>
-        <link rel="stylesheet" href="./assets/css/style.css"/>
-        <script src="./assets/js/jquery-3.4.1.min.js"></script>
-        <script src="./assets/js/sweetalert2@9.js"></script>
-        <script src="./assets/js/main.js"></script>
+        <link rel="stylesheet" href="./assets/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="./assets/css/blue-style.css"/>
         <title>Todos los viajes de una ruta</title>
     </head>
     <body>
         
-        <header>
-            <img class="logo" src="./assets/img/logo.png" alt="logo" width="auto" />
-            <nav class="ml-auto">
-                <ul>
-                    <li><a href="#">Iniciar sesión</a></li>
-                    <li><a href="#">Idioma</a></li>
-                </ul>
-            </nav>
+        <!-- barra de navegación -->
+        <header class="container-fuild">
+            <jsp:include page="./modulo/barra_de_navegacion.jsp" />
         </header>
         
-        <main>
+        <!-- contenido principal -->
+        <main class="container-fluid">
             
-            <section class="bg-opacity bg-img" style="background-image:url('./assets/img/bus2.jpg');align-items: center"> 
-               
-                <div class="bg-white p-30" style="margin:auto;border-radius:10px;">
-                    <div class="navigation">
-                        <ul>
-                            <li><a href="./inicio.jsp"><i class="fas fa-home"></i></a></li>
-                            <li><a href="./viajes.jsp"><span>1</span> Viaje</a></li>
-                            <li><a href="./pasajeros.jsp"><span>2</span> Pasajeros</a></li>
-                            <li><a class="active" href="#"><span>3</span> Resumen</a></li>
-                            <li><a href="#"><span>4</span> Pago</a></li>
-                            <li><a href="#"><span>5</span> Completado</a></li>
-                        </ul>
-                    </div>
-                    <h1 class="mx-auto price" style="text-align:center">
+            <!-- todos los pasos para completar la operación -->
+            <section class="row"> 
+                <jsp:include page="./modulo/pasos.jsp" />
+            </section>
+            
+            <section class="row justify-content-center"> 
+                
+                <div class="col-md-9">
+                    <h1 class="text-center price">
                         <%= reserva.getRuta().getPrecio() * reserva.getPasajeros() %> €
-                    </h1>  
+                    </h1> 
+                </div> 
                     
+                <div class="col-md-9">
                     <div class="summary">
                         <ul class="summary-travel">
                             <li><i class="fas fa-map-marker-alt"></i> Origen: <strong><%= reserva.getRuta().getEstacionByIdOrigen().getNombre() %></strong></li>
@@ -89,20 +80,23 @@ String laFecha = formatterFecha.format(reserva.getFechaSalida());
                         %>
                         </div>
                     </div>
-                    
-                    <div style="display:flex; justify-content:space-around; margin-top: 10px;">
-                        <a href="./cancelarTodo" class="submit">CANCELAR</a>
-                        <a href="./pagar.jsp" class="submit">PAGAR</a>
-                    </div>
-                        
-                    
                 </div>
-                     
-                        
 
+                <div class="col-md-9 d-flex justify-content-around mt-3">
+                    <a class="btn btn-danger" href="./cancelarTodo"><i class="fas fa-times"></i> CANCELAR RESERVA</a>
+                    <a class="btn btn-primary" href="./pagar.jsp?ok=1"><i class="fas fa-check"></i> PAGAR</a>
+                </div>
+                        
             </section>
             
         </main>
+                        
+                        
+        <script src="./assets/js/jquery-3.4.1.min.js"></script>
+        <script src="./assets/js/popper.min.js"></script>
+        <script src="./assets/js/bootstrap.min.js"></script>
+        <script src="./assets/js/owl.carousel.min.js"></script>
+        <script src="./assets/js/main.js"></script>
         
     </body>
 </html>

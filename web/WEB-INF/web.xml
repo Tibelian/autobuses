@@ -28,6 +28,14 @@
         <servlet-name>crearCuenta</servlet-name>
         <servlet-class>BLL.crearCuenta</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>agregarTarjeta</servlet-name>
+        <servlet-class>BLL.agregarTarjeta</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>eliminarTarjeta</servlet-name>
+        <servlet-class>BLL.eliminarTarjeta</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>buscarViajes</servlet-name>
         <url-pattern>/buscarViajes</url-pattern>
@@ -55,6 +63,14 @@
     <servlet-mapping>
         <servlet-name>crearCuenta</servlet-name>
         <url-pattern>/crearCuenta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>agregarTarjeta</servlet-name>
+        <url-pattern>/agregarTarjeta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>eliminarTarjeta</servlet-name>
+        <url-pattern>/eliminarTarjeta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

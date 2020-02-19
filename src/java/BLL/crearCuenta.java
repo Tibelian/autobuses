@@ -7,6 +7,7 @@ import Modelo.MyHash;
 import POJOS.Cliente;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,17 +42,36 @@ public class crearCuenta extends HttpServlet {
                 cliente.setEmail(email);
                 cliente.setNombre(nombre);
                 cliente.setApellidos(apellidos);
+                cliente.setDni(dni);
                 cliente.setTelefono(Integer.parseInt(telefono));
                 cliente.setClave(MyHash.encriptar(password));
                 
                 try{
                     
                     new Operacion().crearCuenta(SessionBuilder, cliente);
+                    
+                    boolean redirect = false;
+                    String url = "";
                     if(request.getParameter("redirect") != null){
-                        response.sendRedirect(request.getParameter("redirect"));
-                    }else{
-                        out.println("Cuenta creada con éxito");
+                        redirect = true;
+                        url = request.getParameter("redirect");
                     }
+                    if(request.getParameter("login") != null){
+                        String otherServlet = "./iniciarSesion";
+                        if(redirect){
+                            otherServlet = "./iniciarSesion?redirect=" + url;
+                        }
+                        // redirecciona al servlet de login
+                        RequestDispatcher rd = request.getRequestDispatcher(otherServlet);
+                        rd.forward(request,response);
+                    }else{
+                        if(redirect){
+                            response.sendRedirect(url);
+                        }else{
+                            out.println("Cuenta creada con éxito");
+                        }
+                    }
+                    
                     
                 }catch(HibernateException ex){
                     out.println("No se ha podido crear la cuenta: " + ex.getMessage());

@@ -65,6 +65,17 @@ header nav ul li a:hover, header nav ul li a.active{
 }
 
 
+.header2{
+    background-color: #fff;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, .2);
+    background-image: none;
+    align-items: center;
+}
+.header2 a{
+    color: #000;
+}
+
+
 
 /*
 DIVISIONES
@@ -605,4 +616,25 @@ DRAG AND DROP
 }
 .avatar i{
     color: rgba(0, 0, 0, .1);
+}
+
+
+
+.animate-test{
+    animation: dragPasajero .5s infinite;
+}
+
+@keyframes dragPasajero {
+    0% {
+        transform: rotate(-20deg);
+    }
+    33% {
+        transform: rotate(0deg);
+    }
+    66% {
+        transform: rotate(20deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
 }
