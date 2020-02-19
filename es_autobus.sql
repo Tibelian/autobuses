@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.0
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Feb 11, 2020 at 05:08 PM
--- Server version: 10.1.44-MariaDB-0ubuntu0.18.04.1
--- PHP Version: 7.2.24-0ubuntu0.18.04.2
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 19-02-2020 a las 21:53:49
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `es_autobus`
+-- Base de datos: `es_autobus`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cliente`
+-- Estructura de tabla para la tabla `cliente`
 --
 
 CREATE TABLE `cliente` (
@@ -38,25 +38,40 @@ CREATE TABLE `cliente` (
   `email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`id`, `dni`, `clave`, `nombre`, `apellidos`, `telefono`, `email`) VALUES
+(1, '123456789U', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Prueba', 'Test', 123456789, 'prueba@gmail.com');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `compra`
+-- Estructura de tabla para la tabla `compra`
 --
 
 CREATE TABLE `compra` (
   `id` int(11) NOT NULL,
   `id_viaje` int(11) NOT NULL,
+  `id_tarjeta` int(11) NOT NULL,
   `fecha` datetime NOT NULL,
   `importe` double NOT NULL,
   `viajeros` int(11) NOT NULL,
   `localizador` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `compra`
+--
+
+INSERT INTO `compra` (`id`, `id_viaje`, `id_tarjeta`, `fecha`, `importe`, `viajeros`, `localizador`) VALUES
+(3, 1, 11, '2020-02-19 21:46:52', 20.5, 1, 'RRtPHEKY');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `estacion`
+-- Estructura de tabla para la tabla `estacion`
 --
 
 CREATE TABLE `estacion` (
@@ -67,7 +82,7 @@ CREATE TABLE `estacion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `estacion`
+-- Volcado de datos para la tabla `estacion`
 --
 
 INSERT INTO `estacion` (`id`, `nombre`, `direccion`, `localidad`) VALUES
@@ -79,7 +94,7 @@ INSERT INTO `estacion` (`id`, `nombre`, `direccion`, `localidad`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `horario`
+-- Estructura de tabla para la tabla `horario`
 --
 
 CREATE TABLE `horario` (
@@ -90,7 +105,7 @@ CREATE TABLE `horario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `horario`
+-- Volcado de datos para la tabla `horario`
 --
 
 INSERT INTO `horario` (`id`, `id_ruta`, `hora`, `tipo`) VALUES
@@ -110,7 +125,7 @@ INSERT INTO `horario` (`id`, `id_ruta`, `hora`, `tipo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ocupacion`
+-- Estructura de tabla para la tabla `ocupacion`
 --
 
 CREATE TABLE `ocupacion` (
@@ -124,7 +139,7 @@ CREATE TABLE `ocupacion` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ruta`
+-- Estructura de tabla para la tabla `ruta`
 --
 
 CREATE TABLE `ruta` (
@@ -137,7 +152,7 @@ CREATE TABLE `ruta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ruta`
+-- Volcado de datos para la tabla `ruta`
 --
 
 INSERT INTO `ruta` (`id`, `id_origen`, `id_destino`, `duracion`, `kilometros`, `precio`) VALUES
@@ -149,44 +164,52 @@ INSERT INTO `ruta` (`id`, `id_origen`, `id_destino`, `duracion`, `kilometros`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tarjeta`
+-- Estructura de tabla para la tabla `tarjeta`
 --
 
 CREATE TABLE `tarjeta` (
   `id` int(11) NOT NULL,
   `id_cliente` int(11) NOT NULL,
   `tipo` varchar(50) NOT NULL,
-  `numero` int(17) NOT NULL,
+  `numero` varbinary(100) NOT NULL,
   `caducidad` date NOT NULL,
-  `cvv` int(3) NOT NULL
+  `cvv` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `tarjeta`
+--
+
+INSERT INTO `tarjeta` (`id`, `id_cliente`, `tipo`, `numero`, `caducidad`, `cvv`) VALUES
+(9, 1, 'mastercard', 0xae023d5f753415d6cd129b6cb81682f7d72f6b302bd79a4193898e43ca88ba7d, '2020-11-01', 234),
+(11, 1, 'discover', 0x6a3988af5b974fd97bee24fa4e48e97ad72f6b302bd79a4193898e43ca88ba7d, '2020-11-01', 245);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `viaje`
+-- Estructura de tabla para la tabla `viaje`
 --
 
 CREATE TABLE `viaje` (
   `id` int(11) NOT NULL,
   `id_horario` int(11) NOT NULL,
   `fecha` date NOT NULL,
-  `plazas` int(11) NOT NULL
+  `plazas` int(11) NOT NULL,
+  `plazas_disponibles` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `viaje`
+-- Volcado de datos para la tabla `viaje`
 --
 
-INSERT INTO `viaje` (`id`, `id_horario`, `fecha`, `plazas`) VALUES
-(1, 1, '2020-01-28', 10),
-(2, 2, '2020-01-29', 15),
-(3, 1, '2020-01-28', 7);
+INSERT INTO `viaje` (`id`, `id_horario`, `fecha`, `plazas`, `plazas_disponibles`) VALUES
+(1, 2, '2020-01-28', 10, 9),
+(3, 1, '2020-01-28', 6, 6);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `viajero`
+-- Estructura de tabla para la tabla `viajero`
 --
 
 CREATE TABLE `viajero` (
@@ -198,38 +221,39 @@ CREATE TABLE `viajero` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `cliente`
+-- Indices de la tabla `cliente`
 --
 ALTER TABLE `cliente`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `dni` (`dni`);
 
 --
--- Indexes for table `compra`
+-- Indices de la tabla `compra`
 --
 ALTER TABLE `compra`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_viaje` (`id_viaje`);
+  ADD KEY `id_viaje` (`id_viaje`),
+  ADD KEY `id_tarjeta` (`id_tarjeta`);
 
 --
--- Indexes for table `estacion`
+-- Indices de la tabla `estacion`
 --
 ALTER TABLE `estacion`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `horario`
+-- Indices de la tabla `horario`
 --
 ALTER TABLE `horario`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_ruta` (`id_ruta`);
 
 --
--- Indexes for table `ocupacion`
+-- Indices de la tabla `ocupacion`
 --
 ALTER TABLE `ocupacion`
   ADD PRIMARY KEY (`id`),
@@ -237,129 +261,131 @@ ALTER TABLE `ocupacion`
   ADD KEY `id_viajero` (`id_viajero`);
 
 --
--- Indexes for table `ruta`
+-- Indices de la tabla `ruta`
 --
 ALTER TABLE `ruta`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_origen_2` (`id_origen`,`id_destino`),
   ADD KEY `id_destino` (`id_destino`),
   ADD KEY `id_origen` (`id_origen`);
 
 --
--- Indexes for table `tarjeta`
+-- Indices de la tabla `tarjeta`
 --
 ALTER TABLE `tarjeta`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_cliente` (`id_cliente`);
 
 --
--- Indexes for table `viaje`
+-- Indices de la tabla `viaje`
 --
 ALTER TABLE `viaje`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_horario` (`id_horario`);
 
 --
--- Indexes for table `viajero`
+-- Indices de la tabla `viajero`
 --
 ALTER TABLE `viajero`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `cliente`
+-- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `compra`
+-- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `estacion`
+-- AUTO_INCREMENT de la tabla `estacion`
 --
 ALTER TABLE `estacion`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `horario`
+-- AUTO_INCREMENT de la tabla `horario`
 --
 ALTER TABLE `horario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `ocupacion`
+-- AUTO_INCREMENT de la tabla `ocupacion`
 --
 ALTER TABLE `ocupacion`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `ruta`
+-- AUTO_INCREMENT de la tabla `ruta`
 --
 ALTER TABLE `ruta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `tarjeta`
+-- AUTO_INCREMENT de la tabla `tarjeta`
 --
 ALTER TABLE `tarjeta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `viaje`
+-- AUTO_INCREMENT de la tabla `viaje`
 --
 ALTER TABLE `viaje`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `viajero`
+-- AUTO_INCREMENT de la tabla `viajero`
 --
 ALTER TABLE `viajero`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `compra`
+-- Filtros para la tabla `compra`
 --
 ALTER TABLE `compra`
-  ADD CONSTRAINT `compra_ibfk_1` FOREIGN KEY (`id_viaje`) REFERENCES `viaje` (`id`);
+  ADD CONSTRAINT `compra_ibfk_1` FOREIGN KEY (`id_viaje`) REFERENCES `viaje` (`id`),
+  ADD CONSTRAINT `compra_ibfk_2` FOREIGN KEY (`id_tarjeta`) REFERENCES `tarjeta` (`id`);
 
 --
--- Constraints for table `horario`
+-- Filtros para la tabla `horario`
 --
 ALTER TABLE `horario`
   ADD CONSTRAINT `horario_ibfk_1` FOREIGN KEY (`id_ruta`) REFERENCES `ruta` (`id`);
 
 --
--- Constraints for table `ocupacion`
+-- Filtros para la tabla `ocupacion`
 --
 ALTER TABLE `ocupacion`
   ADD CONSTRAINT `ocupacion_ibfk_1` FOREIGN KEY (`id_compra`) REFERENCES `compra` (`id`),
   ADD CONSTRAINT `ocupacion_ibfk_2` FOREIGN KEY (`id_viajero`) REFERENCES `viajero` (`id`);
 
 --
--- Constraints for table `ruta`
+-- Filtros para la tabla `ruta`
 --
 ALTER TABLE `ruta`
   ADD CONSTRAINT `ruta_ibfk_1` FOREIGN KEY (`id_destino`) REFERENCES `estacion` (`id`),
   ADD CONSTRAINT `ruta_ibfk_2` FOREIGN KEY (`id_origen`) REFERENCES `estacion` (`id`);
 
 --
--- Constraints for table `tarjeta`
+-- Filtros para la tabla `tarjeta`
 --
 ALTER TABLE `tarjeta`
   ADD CONSTRAINT `tarjeta_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`);
 
 --
--- Constraints for table `viaje`
+-- Filtros para la tabla `viaje`
 --
 ALTER TABLE `viaje`
   ADD CONSTRAINT `viaje_ibfk_1` FOREIGN KEY (`id_horario`) REFERENCES `horario` (`id`);
@@ -368,4 +394,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
