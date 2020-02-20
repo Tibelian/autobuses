@@ -83,7 +83,6 @@ public class confirmarPago extends HttpServlet {
                             Tarjeta xTarjeta = (Tarjeta) itTarjetas.next();
                             if (xTarjeta.getId() == id) {
                                 compra.setTarjeta(xTarjeta);
-                                //compra.getTarjeta().getCompras().add(compra); // ¡¡ importante !!
                                 break;
                             }
                         }

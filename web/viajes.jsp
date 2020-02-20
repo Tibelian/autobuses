@@ -29,7 +29,7 @@ String laFecha = formatterFecha.format(reserva.getFechaSalida());
         <link rel="stylesheet" href="./assets/css/owl.carousel.min.css"/>
         <link rel="stylesheet" href="./assets/css/owl.theme.default.min.css"/>
         <link rel="stylesheet" href="./assets/css/blue-style.css"/>
-        <title>Todos los viajes de una ruta</title>
+        <title>Todos los viajes de una ruta - AutoBus</title>
     </head>
     <body>
         

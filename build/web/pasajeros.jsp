@@ -49,7 +49,7 @@ while(comprasIt.hasNext()){
         <link rel="stylesheet" href="./assets/css/all.min.css"/>
         <link rel="stylesheet" href="./assets/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="./assets/css/blue-style.css"/>
-        <title>Todos los viajes de una ruta</title>
+        <title>Seleccionar asiento - Autobus</title>
     </head>
     <body>
         
@@ -144,7 +144,7 @@ while(comprasIt.hasNext()){
                                 for(int asiento = 1; asiento <= reserva.getViaje().getPlazas(); asiento++){
 
                                     boolean ocupado = false;
-                                    for(int n = 1; n <= ocupados.size(); n++){
+                                    for(int n = 0; n < ocupados.size(); n++){
                                         if(asiento == ocupados.get(n)){
                                             ocupado = true;
                                         }
@@ -152,7 +152,7 @@ while(comprasIt.hasNext()){
 
                                     if(ocupado){
                                         %>
-                                        <div class="chair busy" id="chair-<%= asiento %>"><span>OCUPADO</span></div>
+                                        <div class="chair busy disabled" id="chair-<%= asiento %>"><span>OCUPADO</span></div>
                                         <%
                                     }else{
                                         %>

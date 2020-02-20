@@ -15,7 +15,7 @@ List<Estacion> listadoOrigen = (List)session.getAttribute("listadoOrigen");
         <link rel="stylesheet" href="./assets/css/all.min.css"/>
         <link rel="stylesheet" href="./assets/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="./assets/css/blue-style.css"/>
-        <title>Bienvenido al mejor sitio web del mundo</title>
+        <title>Encuentra viajes baratos - AutoBus</title>
     </head>
     <body>
         

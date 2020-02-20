@@ -34,7 +34,7 @@ if(reserva.getViajeros() == null){
         <link rel="stylesheet" href="./assets/css/all.min.css"/>
         <link rel="stylesheet" href="./assets/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="./assets/css/blue-style.css"/>
-        <title>Todos los viajes de una ruta</title>
+        <title>Resumen reserva - AutoBus</title>
     </head>
     <body>
         

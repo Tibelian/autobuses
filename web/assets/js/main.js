@@ -99,21 +99,21 @@ function registro(){
                     <input class="form-control" type="password" id="password" name="password">
                 </div>
                 <div class="form-row">
-                    <div class="form-group">
+                    <div class="form-group col">
                         <label for="nombre"><i class="fas fa-user"></i> Nombre:</label>
                         <input class="form-control" type="text" id="nombre" name="nombre">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col">
                         <label for="apellidos"><i class="far fa-user"></i> Apellidos:</label>
                         <input class="form-control" type="text" id="apellidos" name="apellidos">
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group">
+                    <div class="form-group col">
                         <label for="dni"><i class="fas fa-id-card"></i> DNI:</label>
                         <input class="form-control" onchange="validarRegistroDni()" type="text" id="dni" name="dni">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col">
                         <label for="telefono"><i class="fas fa-phone"></i> Teléfono:</label>
                         <input class="form-control" type="number" id="telefono" name="telefono">
                     </div>
@@ -227,10 +227,12 @@ function compruebaAsientosOcupados(){
             }
         }
         if(!ocupado){
-            chair[i].classList.remove("busy");
-            chair[i].setAttribute("ondragover", "allowDrop(event)");
-            //console.log("SE HA LIBERDO LA SILLA -->");
-            //console.log(chair[i]);
+            if(!chair[i].classList.contains("disabled")){
+                chair[i].classList.remove("busy");
+                chair[i].setAttribute("ondragover", "allowDrop(event)");
+                //console.log("SE HA LIBERDO LA SILLA -->");
+                //console.log(chair[i]);
+            }
         }
     }
 }

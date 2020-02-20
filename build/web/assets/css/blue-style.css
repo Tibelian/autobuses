@@ -177,6 +177,9 @@ DRAG AND DROP
     filter: grayscale(100%);
     cursor: not-allowed;
 }
+.chair.busy span{
+    font-size: 8px;
+}
 .chair i{
     cursor: pointer;
     width: 100%;
@@ -272,6 +275,9 @@ nav{
 .owl-stage-outer {
     display: flex;
     justify-content: center;
+}
+.swal2-content form{
+    padding: 10px 20px 10px 20px;
 }
 
 
