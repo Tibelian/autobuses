@@ -7,7 +7,9 @@ import Modelo.Localizador;
 import Modelo.Reserva;
 import POJOS.Cliente;
 import POJOS.Compra;
+import POJOS.Ocupacion;
 import POJOS.Tarjeta;
+import POJOS.Viajero;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -45,22 +47,43 @@ public class confirmarPago extends HttpServlet {
                         Reserva reserva = (Reserva) session.getAttribute("reserva");
                         Compra compra = new Compra();
                         
+                        // fecha actual
                         compra.setFecha(new Date());
+                        
+                        // precio total
                         compra.setImporte(reserva.getViajeros().size() * reserva.getRuta().getPrecio());
+                        
+                        // recoge el viaje
                         compra.setViaje(reserva.getViaje());
+                        
+                        // establece cantidad de pasajeros
                         compra.setViajeros(reserva.getViajeros().size());
-                        compra.setLocalizador(Localizador.generar(8)); // genera un string aleatorio de 8 carácteres
+                        
+                        // genera un string aleatorio de 8 carácteres
+                        compra.setLocalizador(Localizador.generar(8));
+                        
+                        // inserta los viajeros con sus ocupaciones
+                        for (Viajero viajero : reserva.getViajeros()) {
+                            Ocupacion ocupacion = new Ocupacion();
+                            ocupacion.setViajero(viajero);
+                            ocupacion.setImporte(reserva.getRuta().getPrecio());
+                            ocupacion.setAsiento(viajero.getAsiento());
+                            ocupacion.setCompra(compra); // ¡¡ importante !!
+                            compra.getOcupacions().add(ocupacion);
+                        }
                         
                         // resta plazas disponibles
                         compra.getViaje().setPlazasDisponibles(
                             compra.getViaje().getPlazasDisponibles() - compra.getViajeros()
                         );
                         
+                        // selecciona la tarjeta con la que se ha realizado la compra
                         Iterator itTarjetas = cliente.getTarjetas().iterator();
                         while (itTarjetas.hasNext()) {
                             Tarjeta xTarjeta = (Tarjeta) itTarjetas.next();
                             if (xTarjeta.getId() == id) {
                                 compra.setTarjeta(xTarjeta);
+                                //compra.getTarjeta().getCompras().add(compra); // ¡¡ importante !!
                                 break;
                             }
                         }

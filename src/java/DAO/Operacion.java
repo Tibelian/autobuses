@@ -24,6 +24,7 @@ public class Operacion {
         String hql = "from Estacion";
         Query query = session.createQuery(hql);
         List estaciones = query.list();
+        session.close();
         return estaciones;
     }
     
@@ -32,6 +33,7 @@ public class Operacion {
         String hql = "from Estacion where id != :id";
         Query query = session.createQuery(hql).setParameter("id", id);
         List estaciones = query.list();
+        session.close();
         return estaciones;
     }
     
@@ -99,6 +101,7 @@ public class Operacion {
             Compra compra = (Compra)compras.next();
             Hibernate.initialize(compra.getOcupacions());
         }
+        session.close();
         return viaje;
     }
     
@@ -114,6 +117,7 @@ public class Operacion {
             throw new AutobusesException(404, "No se han encontrado el cliente");
         }
         Hibernate.initialize(cliente.getTarjetas());
+        session.close();
         return cliente;
     }
     
@@ -181,7 +185,7 @@ public class Operacion {
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            session.save(compra);
+            session.saveOrUpdate(compra);
             session.getTransaction().commit();
         }catch(HibernateException HE){
             if(tx != null){

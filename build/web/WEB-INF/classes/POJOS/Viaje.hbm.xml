@@ -20,7 +20,7 @@
         <property name="plazasDisponibles" type="int">
             <column name="plazas_disponibles" not-null="true" />
         </property>
-        <set name="compras" table="compra" inverse="true" lazy="true" fetch="select">
+        <set name="compras" table="compra" inverse="true" lazy="true" fetch="select" cascade="all">
             <key>
                 <column name="id_viaje" not-null="true" />
             </key>

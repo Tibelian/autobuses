@@ -29,7 +29,7 @@ if(pagina.equals("viajes.jsp")){
             <li <% if(paso > 2){out.print("class='active'");} %>><a href="./pasajeros.jsp"><i class="fas fa-users"></i> Pasajeros</a></li>
             <li <% if(paso > 3){out.print("class='active'");} %>><a href="./resumen.jsp"><i class="fas fa-file-alt"></i> Resumen</a></li>
             <li <% if(paso > 4){out.print("class='active'");} %>><a href="./pagar.jsp"><i class="fas fa-coins"></i> Pago</a></li>
-            <li <% if(paso > 5){out.print("class='active big'");} %>><a href="./completado.jsp"><i class="fas fa-thumbs-up"></i> Completado</a></li>
+            <li <% if(paso > 5){out.print("class='active'");} %>><a href="./completado.jsp"><i class="fas fa-thumbs-up"></i> Completado</a></li>
         </ul>
     </div>
 </div>

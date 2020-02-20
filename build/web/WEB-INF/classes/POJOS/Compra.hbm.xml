@@ -8,10 +8,10 @@
             <column name="id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="tarjeta" class="POJOS.Tarjeta" fetch="select">
+        <many-to-one name="tarjeta" class="POJOS.Tarjeta" fetch="select" cascade="save-update">
             <column name="id_tarjeta" not-null="true" />
         </many-to-one>
-        <many-to-one name="viaje" class="POJOS.Viaje" fetch="select">
+        <many-to-one name="viaje" class="POJOS.Viaje" fetch="select" cascade="save-update">
             <column name="id_viaje" not-null="true" />
         </many-to-one>
         <property name="fecha" type="timestamp">
@@ -26,7 +26,7 @@
         <property name="localizador" type="string">
             <column name="localizador" length="50" not-null="true" />
         </property>
-        <set name="ocupacions" table="ocupacion" inverse="true" lazy="true" fetch="select">
+        <set name="ocupacions" table="ocupacion" inverse="true" lazy="true" fetch="select" cascade="all">
             <key>
                 <column name="id_compra" not-null="true" />
             </key>
