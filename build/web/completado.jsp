@@ -1,4 +1,5 @@
 
+<%@page import="java.util.Iterator"%>
 <%@page import="POJOS.Compra"%>
 <%@page import="POJOS.Viajero"%>
 <%@page import="java.util.ArrayList"%>
@@ -11,10 +12,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     
-if(
-    session.getAttribute("reserva") == null ||
-    session.getAttribute("compra") == null
-){
+if(session.getAttribute("reserva") == null){
+    if(session.getAttribute("pagina") != null){
+        response.sendRedirect((String)session.getAttribute("pagina"));
+        return;
+    }
+    response.sendRedirect("./");
+    return;
+}
+if(session.getAttribute("compra") == null){
     if(session.getAttribute("pagina") != null){
         response.sendRedirect((String)session.getAttribute("pagina"));
         return;
@@ -24,8 +30,11 @@ if(
 }
 Reserva reserva = (Reserva) session.getAttribute("reserva");
 Compra compra = (Compra) session.getAttribute("compra");
-DateFormat formatterFecha = new SimpleDateFormat("dd/MM/yyyy");
-String laFecha = formatterFecha.format(reserva.getFechaSalida());
+
+SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
+SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+String hora = formatoHora.format(compra.getViaje().getHorario().getHora());
+String fecha = formatoFecha.format(reserva.getFechaSalida());
 
 %>
 <!DOCTYPE html>
@@ -57,7 +66,39 @@ String laFecha = formatterFecha.format(reserva.getFechaSalida());
                 <div class="col-md-9">
                     <h1 class="text-center price h2">
                         ¡GRACIAS POR CONFIAR EN NOSOTROS!
-                    </h1> 
+                    </h1>
+                    
+                    <div class="row justify-content-around">
+                        
+                        <div class="col-12 my-3 d-flex flex-wrap justify-content-center">
+                            <div class="mx-2" id="qrcode"></div>
+                            <div class="mx-2 d-flex flex-column justify-content-center" style="width: 200px; height: 128px" >
+                                <a class="btn btn-sm btn-secondary my-2" href="#"><i class="fas fa-qrcode"></i> Imprimir Código QR</a>
+                                <a class="btn btn-sm btn-secondary my-2" href="#"><i class="fas fa-ticket-alt"></i> Imprimir Billetes</a>
+                            </div>
+                        </div>
+                        
+                        <%
+                        for (Viajero viajero : reserva.getViajeros()) {
+                        %>
+                        <div class="ticket shadow">
+                            <div class="border-dashed">
+                                <h4 class="title"><%= viajero.getApellidos() + " " + viajero.getNombre() %></h4>
+                                <hr>
+                                <p>Fecha: <span><%= fecha %></span></p>
+                                <p style="width: 35%;">Hora: <span><%= hora %></span></p>
+                                <p>Localizador: <span><%= compra.getLocalizador() %></span></p>
+                                <p style="width: 35%;">Asiento: <span><%= viajero.getAsiento() %></span></p>
+                                <hr>
+                                <h4 class="price">Total: <strong><%= reserva.getRuta().getPrecio() %> €</strong></h4>
+                            </div>
+                        </div>
+                        <%
+                        }
+                        %>
+                        
+                    </div>
+                    
                 </div> 
                 
             </section>
@@ -69,7 +110,15 @@ String laFecha = formatterFecha.format(reserva.getFechaSalida());
         <script src="./assets/js/popper.min.js"></script>
         <script src="./assets/js/bootstrap.min.js"></script>
         <script src="./assets/js/sweetalert2@9.js"></script>
+        <script src="./assets/js/qrcode.min.js"></script>
         <script src="./assets/js/main.js"></script>
+        <script type="text/javascript">
+            var codigoQR = new QRCode(document.getElementById("qrcode"), {
+                width: 128,
+                height: 128,
+                text: "Localizador: <%= compra.getLocalizador() %>"
+            });
+        </script>
         
     </body>
 </html>

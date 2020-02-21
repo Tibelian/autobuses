@@ -343,3 +343,69 @@ nav{
 .progressbar li.active + li:after {
     background-color: var(--primary) !important;
 }
+
+
+
+
+
+
+
+
+
+/*
+billete
+*/
+.ticket{
+    background-color: rgb(200, 200, 250);
+    padding: 10px;
+    width: 350px;
+}
+.ticket p{
+    display: flex;
+    height: 25px;
+    align-items: center;
+    justify-content: space-between;
+    width: 50%;
+    margin: 0;
+    font-size: 11px;
+}
+.ticket p span{
+    float: right;
+    font-weight: bold;
+    font-size: 13px;
+}
+.ticket hr{
+    display: block;
+    width: 100%;
+}
+.ticket h4{
+    text-transform: uppercase;
+    margin: 0;
+    font-size: 18px;
+}
+.ticket hr{
+    margin: 5px;
+}
+.ticket .border-dashed{
+    border: 2px dashed rgba(0,0,0,.3);
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.ticket .title{
+    text-align: center;
+    margin: 0 auto 0 auto;
+}
+.ticket .price{
+    width: 100%;
+    padding: 0 10px 0 10px;
+}
+.ticket .price strong{
+    float: right;
+}
+
+
+
+
+
