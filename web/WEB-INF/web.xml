@@ -40,6 +40,14 @@
         <servlet-name>confirmarPago</servlet-name>
         <servlet-class>BLL.confirmarPago</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>cerrarSesion</servlet-name>
+        <servlet-class>BLL.cerrarSesion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>obtenerViajesNoFinalizados</servlet-name>
+        <servlet-class>BLL.obtenerViajesNoFinalizados</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>buscarViajes</servlet-name>
         <url-pattern>/buscarViajes</url-pattern>
@@ -79,6 +87,14 @@
     <servlet-mapping>
         <servlet-name>confirmarPago</servlet-name>
         <url-pattern>/confirmarPago</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cerrarSesion</servlet-name>
+        <url-pattern>/cerrarSesion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>obtenerViajesNoFinalizados</servlet-name>
+        <url-pattern>/obtenerViajesNoFinalizados</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

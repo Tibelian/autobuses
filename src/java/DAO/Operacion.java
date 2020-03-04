@@ -2,9 +2,11 @@
 package DAO;
 
 import Modelo.AutobusesException;
+import POJOS.Administrador;
 import POJOS.Cliente;
 import POJOS.Compra;
 import POJOS.Horario;
+import POJOS.Ocupacion;
 import POJOS.Ruta;
 import POJOS.Tarjeta;
 import POJOS.Viaje;
@@ -122,6 +124,18 @@ public class Operacion {
     }
     
     
+    public Administrador iniciarSesionAdmin(SessionFactory sessionBuilder, String email, String password){
+        Session session = sessionBuilder.openSession();
+        String hql = "from Administrador where email = :email and clave = :password";
+        Query query = session.createQuery(hql);
+        query.setParameter("email", email);
+        query.setParameter("password", password);
+        Administrador admin = (Administrador)query.uniqueResult();
+        session.close();
+        return admin;
+    }
+    
+    
     public void crearCuenta(SessionFactory sessionBuilder, Cliente cliente) throws HibernateException{
         Session session = sessionBuilder.openSession();
         Transaction tx = null;
@@ -196,6 +210,47 @@ public class Operacion {
             session.close();
         }
     }
+    
+
+    
+    public List<Viaje> obtenerViajesNoFinalizados(SessionFactory sessionBuilder){
+        Session session = sessionBuilder.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            String hql = "from Viaje";
+            Query query = session.createQuery(hql);
+            List<Viaje> viajes = query.list();
+            for (Viaje viaje : viajes) {
+                Hibernate.initialize(viaje.getHorario());
+                Hibernate.initialize(viaje.getHorario().getRuta());
+                Hibernate.initialize(viaje.getHorario().getRuta().getEstacionByIdDestino());
+                Hibernate.initialize(viaje.getHorario().getRuta().getEstacionByIdOrigen());
+                Hibernate.initialize(viaje.getCompras());
+                Iterator compras = viaje.getCompras().iterator();
+                while(compras.hasNext()){
+                    Compra compra = (Compra)compras.next();
+                    Hibernate.initialize(compra.getTarjeta());
+                    Hibernate.initialize(compra.getOcupacions());
+                    Iterator ocupaciones = compra.getOcupacions().iterator();
+                    while(ocupaciones.hasNext()){
+                        Ocupacion ocupacion = (Ocupacion) ocupaciones.next();
+                        Hibernate.initialize(ocupacion.getViajero());
+                    }
+                }
+            }
+            return viajes;
+        }catch(HibernateException HE){
+            if(tx != null){
+                tx.rollback();
+            }
+            throw HE;
+        }finally{
+            session.close();
+        }
+    }
+    
+    
     
     
 }

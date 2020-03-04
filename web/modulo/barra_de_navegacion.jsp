@@ -1,5 +1,15 @@
 
+<%@page import="POJOS.Administrador"%>
 <%@page import="POJOS.Cliente"%>
+<%
+    Object usuario = null;
+    if(session.getAttribute("cliente") != null){
+        usuario = (Cliente) session.getAttribute("cliente");
+    }
+    if(session.getAttribute("administrador") != null){
+        usuario = (Administrador) session.getAttribute("administrador");
+    }
+%>
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <a class="navbar-brand" href="./inicio.jsp">AutoBus</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavBar" aria-controls="mainNavBar" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,14 +35,26 @@
                 </a>
                 <div class="dropdown-menu">
                     <%
-                    if(session.getAttribute("cliente") != null){
-                        Cliente cliente = (Cliente) session.getAttribute("cliente");
+                    if(usuario != null){
+                        String nombre = "";
+                        if(usuario instanceof Cliente){
+                            nombre = ((Cliente)usuario).getNombre();
+                        }else{
+                            nombre = ((Administrador)usuario).getEmail();
+                        }
                     %>
                     <div class="text-center p-2">
-                        ¡Hola <%= cliente.getNombre() %>!
+                        ¡Hola <%= nombre %>!
                     </div>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="./usuario-panel.jsp">Panel usuario</a>
+                    <%
+                    if(usuario instanceof Administrador){
+                    %>
+                    <a class="dropdown-item" href="./admin/">Panel admin</a>
+                    <%
+                    }
+                    %>
                     <a class="dropdown-item" href="./usuario-ajustes.jsp">Ajustes</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="./cerrarSesion">Cerrar sesión</a>

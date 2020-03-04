@@ -67,7 +67,7 @@ List<Estacion> listadoOrigen = (List)session.getAttribute("listadoOrigen");
                                     <div class="form-group col mb-0">
                                         <div class="input-group">
                                             <label title="Fecha de salida" class="input-group-prepend mb-0" for="salida"><span class="input-group-text"><i class="fas fa-clock"></i></span></label>
-                                            <input class="form-control" type="date" name="salida" id="salida" required>
+                                            <input class="form-control" type="date" required name="salida" id="salida">
                                         </div>
                                     </div>
                                     <div class="form-group col mb-0">

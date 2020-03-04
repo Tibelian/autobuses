@@ -5,6 +5,7 @@ import DAO.HibernateUtil;
 import DAO.Operacion;
 import Modelo.AutobusesException;
 import Modelo.MyHash;
+import POJOS.Administrador;
 import POJOS.Cliente;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,21 +35,39 @@ public class iniciarSesion extends HttpServlet {
             
                 String email = request.getParameter("email");
                 String password = MyHash.sha1(request.getParameter("password"));
-                
+                HttpSession session = request.getSession(true);
+                boolean ok = false;
+                    
                 try{
                     
                     Cliente cliente = new Operacion().iniciarSesion(SessionBuilder, email, password);
-                    HttpSession session = request.getSession(true);
                     session.setAttribute("cliente", cliente);
+                    ok = true;
+                
+                }catch(AutobusesException ex){
                     
+                    if(ex.getCode() == 404){
+                        
+                        Administrador admin = new Operacion().iniciarSesionAdmin(SessionBuilder, email, password);
+                        if(admin != null){
+                            session.setAttribute("administrador", admin);
+                            ok = true;
+                        }
+                        
+                    }else{
+                        out.println("Error: " + ex.getMessage());
+                    }
+                    
+                }
+                
+                if(ok){
                     if(request.getParameter("redirect") != null){
                         response.sendRedirect(request.getParameter("redirect"));
                     }else{
                         out.println("Has iniciado sesión con éxito");
                     }
-                
-                }catch(AutobusesException ex){
-                    out.println("Error: " + ex.getMessage());
+                }else{
+                    out.println("Los datos que has introducido son incorrectos");
                 }
                 
             }else{

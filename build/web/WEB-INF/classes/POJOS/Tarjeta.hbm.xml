@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 19-feb-2020 19:59:25 by Hibernate Tools 4.3.1 -->
+<!-- Generated 03-mar-2020 10:51:32 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="POJOS.Tarjeta" table="tarjeta" catalog="es_autobus" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">
             <column name="id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="cliente" class="POJOS.Cliente" fetch="select" cascade="all">
+        <many-to-one name="cliente" class="POJOS.Cliente" fetch="select">
             <column name="id_cliente" not-null="true" />
         </many-to-one>
         <property name="tipo" type="string">
@@ -28,6 +28,12 @@
                 <column name="id_tarjeta" not-null="true" />
             </key>
             <one-to-many class="POJOS.Compra" />
+        </set>
+        <set name="compraBackups" table="compra_backup" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_tarjeta" not-null="true" />
+            </key>
+            <one-to-many class="POJOS.CompraBackup" />
         </set>
     </class>
 </hibernate-mapping>

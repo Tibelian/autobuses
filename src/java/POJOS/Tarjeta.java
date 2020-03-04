@@ -1,5 +1,5 @@
 package POJOS;
-// Generated 19-feb-2020 19:59:24 by Hibernate Tools 4.3.1
+// Generated 03-mar-2020 10:51:31 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -19,6 +19,7 @@ public class Tarjeta  implements java.io.Serializable {
      private Date caducidad;
      private int cvv;
      private Set compras = new HashSet(0);
+     private Set compraBackups = new HashSet(0);
 
     public Tarjeta() {
     }
@@ -31,13 +32,14 @@ public class Tarjeta  implements java.io.Serializable {
         this.caducidad = caducidad;
         this.cvv = cvv;
     }
-    public Tarjeta(Cliente cliente, String tipo, byte[] numero, Date caducidad, int cvv, Set compras) {
+    public Tarjeta(Cliente cliente, String tipo, byte[] numero, Date caducidad, int cvv, Set compras, Set compraBackups) {
        this.cliente = cliente;
        this.tipo = tipo;
        this.numero = numero;
        this.caducidad = caducidad;
        this.cvv = cvv;
        this.compras = compras;
+       this.compraBackups = compraBackups;
     }
    
     public Integer getId() {
@@ -88,6 +90,13 @@ public class Tarjeta  implements java.io.Serializable {
     
     public void setCompras(Set compras) {
         this.compras = compras;
+    }
+    public Set getCompraBackups() {
+        return this.compraBackups;
+    }
+    
+    public void setCompraBackups(Set compraBackups) {
+        this.compraBackups = compraBackups;
     }
 
 
