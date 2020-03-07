@@ -69,17 +69,18 @@ public class crearCuenta extends HttpServlet {
                         if(redirect){
                             response.sendRedirect(url);
                         }else{
-                            out.println("Cuenta creada con éxito");
+                            out.println("Cuenta creada con éxito - <a href='./index.jsp'>Volver</a>");
                         }
                     }
                     
                     
                 }catch(HibernateException ex){
-                    out.println("No se ha podido crear la cuenta: " + ex.getMessage());
+                    response.sendRedirect("./error.jsp?code=register-exception&msg=" + ex.getMessage());
                 }
                 
             }else{
-                out.println("Faltan parametros");
+                response.sendRedirect("./error.jsp?code=register-miss");
+                //out.println("Faltan parametros");
             }
             
         }

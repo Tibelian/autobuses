@@ -47,11 +47,11 @@ public class guardarPasajeros extends HttpServlet {
                     out.println("OK");
                     
                 }else{
-                    response.sendRedirect("./error.jsp?code=reserva-404");
+                    response.sendRedirect("./error.jsp?code=La reserva no es válida");
                 }
                 
             }else{
-                out.println("FALTAN DATOS");
+                response.sendRedirect("./error.jsp?code=data-miss");
             }
             
         }

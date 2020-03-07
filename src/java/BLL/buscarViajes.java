@@ -63,15 +63,17 @@ public class buscarViajes extends HttpServlet {
                     response.sendRedirect("./viajes.jsp");
 
                 } catch (ParseException ex) {
-                    out.println("ERROR DATE");
+                    response.sendRedirect("./error.jsp?code=EXCEPTION DATE: " + ex.getMessage());
+                    //out.println("ERROR DATE");
                 } catch (AutobusesException ex) {
                     response.sendRedirect("./error.jsp?code=viaje-404");
                 } catch(HibernateException hx){
-                    out.println("EXCEPTION HIBERNATE: " + hx.getMessage());
+                    response.sendRedirect("./error.jsp?code=EXCEPTION: " + hx.getMessage());
+                    //out.println("EXCEPTION HIBERNATE: " + hx.getMessage());
                 }
 
             }else{
-                out.println("NOP");
+                response.sendRedirect("./error.jsp?code=data-miss");
             }
             
         }

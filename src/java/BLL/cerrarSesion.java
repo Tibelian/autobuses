@@ -30,7 +30,9 @@ public class cerrarSesion extends HttpServlet {
             if(session.getAttribute("compra") != null){
                 session.setAttribute("compra", null);
             }
-            out.print("Has cerrado sesión");
+            
+            response.sendRedirect(".index.jsp");
+            //out.print("Has cerrado sesión");
             
         }
     }

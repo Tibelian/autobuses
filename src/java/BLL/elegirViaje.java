@@ -41,15 +41,15 @@ public class elegirViaje extends HttpServlet {
                     response.sendRedirect("./pasajeros.jsp");
                     
                 }else{
-                    response.sendRedirect("./error.jsp?code=reserva-404");
+                    response.sendRedirect("./error.jsp?code=La reserva no es válida");
                 }
                 
             }else{
-                response.sendRedirect("./error.jsp?code=faltan-parametros");
+                response.sendRedirect("./error.jsp?code=data-miss");
             }
             
         }catch(IOException e){
-            response.sendRedirect("./error.jsp?code=unexpected");
+            response.sendRedirect("./error.jsp?code=EXCEPTION: " + e.getMessage());
         }
     }
 

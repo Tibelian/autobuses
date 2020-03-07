@@ -96,18 +96,19 @@ public class confirmarPago extends HttpServlet {
                             response.sendRedirect("./completado.jsp");
                             
                         } catch(HibernateException ex) {
-                            out.println("EXCEPTION: " + ex.getMessage());
+                            response.sendRedirect("./error.jsp?code=EXCEPTION: " + ex.getMessage());
+                            //out.println("EXCEPTION: " + ex.getMessage());
                         }
                         
                     } else {
-                        out.println("LA RESERVA NO EXISTE");
+                        response.sendRedirect("./error.jsp?code=La reserva no es válida");
                     }
                 } else {
-                    out.println("DEBES INICIAR SESIÓN");
+                    response.sendRedirect("./error.jsp?code=Debes iniciar sesión para seguir");
                 }
                 
             } else {
-                out.println("FALTA INDICAR EL ID DE LA TARJETA");
+                response.sendRedirect("./error.jsp?code=Falta el id de la tarjeta");
             }
             
         }

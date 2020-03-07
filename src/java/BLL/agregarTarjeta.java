@@ -46,7 +46,7 @@ public class agregarTarjeta extends HttpServlet {
                 try{
                     fechaCaducidad = new SimpleDateFormat("yyyy-MM").parse(caducidad);
                 } catch (ParseException ex) {
-                    response.sendRedirect("./error.jsp?codigo=fecha-invalida-" + ex.getMessage());
+                    response.sendRedirect("./error.jsp?codigo=EXCEPTION DATE: " + ex.getMessage());
                     return;
                 }
                 tarjeta.setNumero(numero.replace(" ", "").getBytes(StandardCharsets.UTF_8)); // elimina los espacios
@@ -72,18 +72,17 @@ public class agregarTarjeta extends HttpServlet {
                         
                         response.sendRedirect("./index.jsp");
                         
-                    }catch(HibernateException he){
-                        out.print("Exception: " + he.getMessage());
-                    } catch (AutobusesException ex) {
-                        out.println("Error: " + ex.getMessage());
+                    }catch(HibernateException | AutobusesException he){
+                        response.sendRedirect("./error.jsp?code=EXCEPTION: " + he.getMessage());
+                        //out.print("Exception: " + he.getMessage());
                     }
                 
                 }else{
-                    out.print("DEBES INICIAR SESIÓN");
+                    response.sendRedirect("./error.jsp?code=Debes iniciar sesión para seguir");
                 }
                 
             }else{
-                out.print("FALTAN DATOS");
+                    response.sendRedirect("./error.jsp?code=data-miss");
             }
             
         }

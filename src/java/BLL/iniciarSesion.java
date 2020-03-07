@@ -64,14 +64,17 @@ public class iniciarSesion extends HttpServlet {
                     if(request.getParameter("redirect") != null){
                         response.sendRedirect(request.getParameter("redirect"));
                     }else{
-                        out.println("Has iniciado sesión con éxito");
+                        response.sendRedirect("./index.jsp");
+                        //out.println("Has iniciado sesión con éxito");
                     }
                 }else{
-                    out.println("Los datos que has introducido son incorrectos");
+                    response.sendRedirect("./error.jsp?code=login-wrong");
+                    //out.println("Los datos que has introducido son incorrectos");
                 }
                 
             }else{
-                out.println("Falta parámetros");
+                response.sendRedirect("./error.jsp?code=login-miss");
+                //out.println("Falta parámetros");
             }
             
         }

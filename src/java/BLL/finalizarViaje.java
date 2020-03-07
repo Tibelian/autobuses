@@ -52,11 +52,11 @@ public class finalizarViaje extends HttpServlet {
                     }
                     
                 }else{
-                    out.print("FALTA LA SESSION listadoViajes");
+                    response.sendRedirect("./error.jsp?code=Falta la sessión 'listadoViajes'");
                 }
                 
             }else{
-                out.print("FALTA EL PARÁMETRO id");
+                response.sendRedirect("./error.jsp?code=data-miss");
             }
            
             

@@ -107,7 +107,11 @@ String laFecha = formatterFecha.format(reserva.getFechaSalida());
                        
                     <%
                     if(count == 0){
-                        response.sendRedirect("./error.jsp?code=horario-404");
+                        String origen = reserva.getRuta().getEstacionByIdOrigen().getNombre();
+                        String destino = reserva.getRuta().getEstacionByIdDestino().getNombre();
+                        session.setAttribute("reserva", null);
+                        session.setAttribute("pagina", null);
+                        response.sendRedirect("./error.jsp?code=horario-404&origen=" + origen + "&destino=" + destino + "&fecha=" + laFecha);
                         return;
                     }
                     %>

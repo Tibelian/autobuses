@@ -59,19 +59,19 @@ public class eliminarTarjeta extends HttpServlet {
                             response.sendRedirect("./pagar.jsp?msg=eliminar-tarjeta-ok");
                             
                         }else{
-                            out.print("NO SE HA ENCONTRADO LA TARJETA QUE SE DESEA ELIMINAR");
+                            response.sendRedirect("./error.jsp?code=NO SE HA ENCONTRADO LA TARJETA QUE SE DESEA ELIMINAR");
                         }
                         
                     }else{
-                        out.print("DEBES INICIAR SESIÓN PARA REALIZAR ESTA OPERACIÓN");
+                        response.sendRedirect("./error.jsp?code=DEBES INICIAR SESIÓN PARA REALIZAR ESTA OPERACIÓN");
                     }
                     
                 }catch(HibernateException | AutobusesException he){
-                    out.println("EXCEPTION: " + he.getMessage());
+                    response.sendRedirect("./error.jsp?code=EXCEPTION: " + he.getMessage());
                 }
                 
             }else{
-                out.print("FALTA EL PARÁMETRO 'ID'");
+                response.sendRedirect("./error.jsp?code=data-miss");
             }
             
         }
