@@ -15,7 +15,6 @@ public class Viajero  implements java.io.Serializable {
      private String dni;
      private String nombre;
      private String apellidos;
-     private int asiento;
      private Set ocupacions = new HashSet(0);
 
     public Viajero() {
@@ -26,13 +25,11 @@ public class Viajero  implements java.io.Serializable {
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
-        this.asiento = asiento;
     }
-    public Viajero(String dni, String nombre, String apellidos, int asiento, Set ocupacions) {
+    public Viajero(String dni, String nombre, String apellidos, Set ocupacions) {
        this.dni = dni;
        this.nombre = nombre;
        this.apellidos = apellidos;
-       this.asiento = asiento;
        this.ocupacions = ocupacions;
     }
    
@@ -64,13 +61,7 @@ public class Viajero  implements java.io.Serializable {
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
-    public int getAsiento() {
-        return this.asiento;
-    }
     
-    public void setAsiento(int asiento) {
-        this.asiento = asiento;
-    }
     public Set getOcupacions() {
         return this.ocupacions;
     }

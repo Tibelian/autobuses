@@ -2,7 +2,7 @@
 package BLL;
 
 import Modelo.Reserva;
-import POJOS.Viajero;
+import Modelo.ViajeroAsiento;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -30,12 +30,12 @@ public class guardarPasajeros extends HttpServlet {
                 if(session.getAttribute("reserva") != null){
                     Reserva reserva = (Reserva)session.getAttribute("reserva");
                     JSONArray json = new JSONArray(jsonString);
-                    ArrayList<Viajero> listado = new ArrayList();
+                    ArrayList<ViajeroAsiento> listado = new ArrayList();
                     
                     Iterator jsonIterator = json.iterator();
                     while(jsonIterator.hasNext()){
                         JSONObject obj = (JSONObject)jsonIterator.next();
-                        Viajero viajero = new Viajero();
+                        ViajeroAsiento viajero = new ViajeroAsiento();
                         viajero.setDni((String)obj.get("dni"));
                         viajero.setApellidos((String)obj.get("apellidos"));
                         viajero.setNombre((String)obj.get("nombre"));

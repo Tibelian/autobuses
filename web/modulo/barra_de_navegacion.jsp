@@ -18,7 +18,7 @@
     <div class="collapse navbar-collapse" id="mainNavBar">
         <ul class="ml-auto navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-question-circle"></i> Ayuda</a>
+                <a class="nav-link" href="#" onclick="ayuda()"><i class="fas fa-question-circle"></i> Ayuda</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -71,6 +71,6 @@
                 </div>
             </li>
         </ul>
-        <button onclick="alert('¿Por qué lo has hecho?')" class="btn btn-outline-primary my-2 my-sm-0" type="submit">Localizador</button>
+        <a href="./localizador.jsp" class="btn btn-outline-primary my-2 my-sm-0">Localizador</a>
     </div>
 </nav>

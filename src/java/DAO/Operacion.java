@@ -13,6 +13,7 @@ import POJOS.Ruta;
 import POJOS.Tarjeta;
 import POJOS.Viaje;
 import POJOS.ViajeBackup;
+import POJOS.Viajero;
 import POJOS.ViajeroBackup;
 import java.util.Iterator;
 import java.util.List;
@@ -336,6 +337,43 @@ public class Operacion {
             session.close();
         }
     
+    }
+    
+    
+    
+    public Integer buscaIdViajero(SessionFactory sessionBuilder, String dni){
+        Session session = sessionBuilder.openSession();
+        String hql = "from Viajero where dni = :dni";
+        Query query = session.createQuery(hql).setParameter("dni", dni);
+        Viajero viajero = (Viajero)query.uniqueResult();
+        session.close();
+        if(viajero != null){
+            return viajero.getId();
+        }else{
+            return null;
+        }
+    }
+    
+    
+    public Compra localizaCompra(SessionFactory sessionBuilder, String localizador){
+        Session session = sessionBuilder.openSession();
+        String hql = "from Compra where localizador = :localizador";
+        Query query = session.createQuery(hql).setParameter("localizador", localizador);
+        Compra compra = (Compra)query.uniqueResult();
+        Hibernate.initialize(compra.getTarjeta());
+        Hibernate.initialize(compra.getOcupacions());
+        Hibernate.initialize(compra.getViaje());
+        Hibernate.initialize(compra.getViaje().getHorario());
+        Hibernate.initialize(compra.getViaje().getHorario().getRuta());
+        Hibernate.initialize(compra.getViaje().getHorario().getRuta().getEstacionByIdOrigen());
+        Hibernate.initialize(compra.getViaje().getHorario().getRuta().getEstacionByIdDestino());
+        Iterator itOcupacion = compra.getOcupacions().iterator();
+        while(itOcupacion.hasNext()){
+            Ocupacion ocupacion = (Ocupacion) itOcupacion.next();
+            Hibernate.initialize(ocupacion.getViajero());
+        }
+        session.close();
+        return compra;
     }
     
 }

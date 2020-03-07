@@ -1,6 +1,9 @@
 
 package BLL;
 
+import DAO.HibernateUtil;
+import DAO.Operacion;
+import POJOS.Compra;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -8,8 +11,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.hibernate.SessionFactory;
 
-public class cerrarSesion extends HttpServlet {
+public class cargaLocalizador extends HttpServlet {
+    
+    private SessionFactory SessionBuilder;
+    
+    @Override
+    public void init(){
+        SessionBuilder = HibernateUtil.getSessionFactory();
+    }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -17,25 +28,17 @@ public class cerrarSesion extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            HttpSession session = request.getSession(true);
-            if(session.getAttribute("cliente") != null){
-                session.setAttribute("cliente", null);
-            }
-            if(session.getAttribute("administrador") != null){
-                session.setAttribute("administrador", null);
-            }
-            if(session.getAttribute("reserva") != null){
-                session.setAttribute("reserva", null);
-            }
-            if(session.getAttribute("compra") != null){
-                session.setAttribute("compra", null);
-            }
-            if(session.getAttribute("pagina") != null){
-                session.setAttribute("pagina", null);
-            }
+            if(request.getParameter("localizador") != null){
             
-            response.sendRedirect("./index.jsp");
-            //out.print("Has cerrado sesión");
+                HttpSession session = request.getSession(true);
+                String localizador = request.getParameter("localizador");
+                Compra compraLocalizada = new Operacion().localizaCompra(SessionBuilder, localizador);
+                session.setAttribute("compraLocalizada", compraLocalizada);
+                response.sendRedirect("./localizador.jsp");
+            
+            }else{
+                response.sendRedirect("./error.jsp?code=data-miss");
+            }
             
         }
     }

@@ -4,7 +4,7 @@ package Modelo;
 import POJOS.Ocupacion;
 import POJOS.Ruta;
 import POJOS.Viaje;
-import POJOS.Viajero;
+import Modelo.ViajeroAsiento;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,7 +16,7 @@ public class Reserva {
     private int pasajeros;
     private Viaje viaje;
     private Ocupacion ocupacion;
-    private ArrayList<Viajero> viajeros;
+    private ArrayList<ViajeroAsiento> viajeros;
     
     public Reserva(){}
     
@@ -26,11 +26,11 @@ public class Reserva {
         this.pasajeros = pasajeros;
     }
 
-    public ArrayList<Viajero> getViajeros() {
+    public ArrayList<ViajeroAsiento> getViajeros() {
         return viajeros;
     }
 
-    public void setViajeros(ArrayList<Viajero> viajeros) {
+    public void setViajeros(ArrayList<ViajeroAsiento> viajeros) {
         this.viajeros = viajeros;
     }
     

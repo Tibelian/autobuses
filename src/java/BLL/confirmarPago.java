@@ -5,6 +5,7 @@ import DAO.HibernateUtil;
 import DAO.Operacion;
 import Modelo.Localizador;
 import Modelo.Reserva;
+import Modelo.ViajeroAsiento;
 import POJOS.Cliente;
 import POJOS.Compra;
 import POJOS.Ocupacion;
@@ -64,11 +65,20 @@ public class confirmarPago extends HttpServlet {
                         compra.setLocalizador(Localizador.generar(8));
                         
                         // inserta los viajeros con sus ocupaciones
-                        for (Viajero viajero : reserva.getViajeros()) {
+                        for (ViajeroAsiento viajeroAsiento : reserva.getViajeros()) {
+                            Viajero viajero = new Viajero();
+                            viajero.setApellidos(viajeroAsiento.getApellidos());
+                            viajero.setNombre(viajeroAsiento.getNombre());
+                            viajero.setDni(viajeroAsiento.getDni());
+                            // busca en la bd si ya existe el viajero para que haga update 
+                            // y no salte la excepción de duplicate entry
+                            // si no existe el viajero el id será null
+                            Integer idViajero = new Operacion().buscaIdViajero(SessionBuilder, viajero.getDni());
+                            viajero.setId(idViajero);
                             Ocupacion ocupacion = new Ocupacion();
+                            ocupacion.setAsiento(viajeroAsiento.getAsiento());
                             ocupacion.setViajero(viajero);
                             ocupacion.setImporte(reserva.getRuta().getPrecio());
-                            ocupacion.setAsiento(viajero.getAsiento());
                             ocupacion.setCompra(compra); // ¡¡ importante !!
                             compra.getOcupacions().add(ocupacion);
                         }

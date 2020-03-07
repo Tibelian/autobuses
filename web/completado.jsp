@@ -1,7 +1,7 @@
 
+<%@page import="Modelo.ViajeroAsiento"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="POJOS.Compra"%>
-<%@page import="POJOS.Viajero"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="POJOS.Viaje"%>
 <%@page import="java.text.DateFormat"%>
@@ -79,7 +79,7 @@ String fecha = formatoFecha.format(reserva.getFechaSalida());
                         </div>
                         
                         <%
-                        for (Viajero viajero : reserva.getViajeros()) {
+                        for (ViajeroAsiento viajero : reserva.getViajeros()) {
                         %>
                         <div class="ticket shadow">
                             <div class="border-dashed">

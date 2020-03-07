@@ -59,6 +59,26 @@ function tieneHijos(element){
     return (count > 0);
 }
 
+
+function ayuda(){
+    Swal.fire({
+        html: `
+            <ul style="text-align:left; list-style-type:none; margin:10px 0 10px 0;">
+                <li><strong>Cuenta Administrador: </strong></li>
+                <li>Email: jefe@autobus.com</li>
+                <li>Clave: 1234</li>
+                <li style="margin-top:15px;"><strong>Cuentas Cliente: </strong></li>
+                <li>Clave: 1234</li>
+                <li style="margin-top:15px;"><strong>Rutas: </strong></li>
+                <li>Albacete -> Madrid | 28-01-2020</li>
+                <li>Madrid -> Albacete | 03-03-2020</li>
+            </ul>
+        `,
+        showCloseButton: true,
+        showCancelButton: false,
+        showConfirmButton: false
+    });
+}
 function login(){
     Swal.fire({
         title: 'Iniciar sesión',

@@ -1,5 +1,5 @@
 
-<%@page import="POJOS.Viajero"%>
+<%@page import="Modelo.ViajeroAsiento"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="POJOS.Viaje"%>
 <%@page import="java.text.DateFormat"%>
@@ -73,14 +73,14 @@ if(reserva.getViajeros() == null){
                     <div class="row">
                     <%
                     for(int i = 0; i < reserva.getViajeros().size(); i++){
-                        Viajero viajero = reserva.getViajeros().get(i);
+                        ViajeroAsiento viajero = reserva.getViajeros().get(i);
                     %>
                         <ul class="col-md-4 col-xs-6 mx-auto bg-white shadow list-group list-group-flush position-relative">
                             <li class="avatar"><i class="fas fa-user fa-6x"></i></li>
                             <li class="list-group-item border-0">DNI: <strong><%= viajero.getDni() %></strong></li>
                             <li class="list-group-item border-0 pt-0">Nombre: <strong><%= viajero.getNombre() %></strong></li>
                             <li class="list-group-item border-0 pt-0">Apellidos: <strong><%= viajero.getApellidos() %></strong></li>
-                            <li class="list-group-item border-0 pt-0">Plaza: <strong><%= viajero.getAsiento() %></strong></li>
+                            <li class="list-group-item border-0 pt-0">Asiento: <strong><%= viajero.getAsiento() %></strong></li>
                         </ul>
                     <%
                     }
@@ -89,7 +89,7 @@ if(reserva.getViajeros() == null){
                 </div>
 
                 <div class="col-md-9 d-flex justify-content-around my-3">
-                    <a class="btn btn-danger ml-3" href="./cancelarTodo"><i class="fas fa-times"></i> CANCELAR RESERVA</a>
+                    <a class="btn btn-danger ml-3" href="./cerrarSesion"><i class="fas fa-times"></i> CANCELAR RESERVA</a>
                     <a class="btn btn-primary mr-3" href="./pagar.jsp?ok=1"><i class="fas fa-check"></i> PAGAR</a>
                 </div>
                         

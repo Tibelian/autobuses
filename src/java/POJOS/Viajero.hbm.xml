@@ -9,16 +9,13 @@
             <generator class="identity" />
         </id>
         <property name="dni" type="string">
-            <column name="dni" length="10" not-null="true" />
+            <column name="dni" length="10" not-null="true" unique="true" />
         </property>
         <property name="nombre" type="string">
             <column name="nombre" length="30" not-null="true" />
         </property>
         <property name="apellidos" type="string">
             <column name="apellidos" length="50" not-null="true" />
-        </property>
-        <property name="asiento" type="int">
-            <column name="asiento" not-null="true" />
         </property>
         <set name="ocupacions" table="ocupacion" inverse="true" lazy="true" fetch="select">
             <key>
