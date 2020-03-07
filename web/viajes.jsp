@@ -112,6 +112,10 @@ String laFecha = formatterFecha.format(reserva.getFechaSalida());
                     }
                     %>
                         
+                    <div class="d-flex flex-column justify-content-center align-items-center w-100 my-4">
+                        <div id="c_75592776f23eec067cdfb752875dcf7f" class="ancho mb-3"></div><script type="text/javascript" src="https://www.eltiempo.es/widget/widget_loader/75592776f23eec067cdfb752875dcf7f"></script>
+                        <div id="c_1600114df6a1fce1ebed744498d2c489" class="ancho"></div><script type="text/javascript" src="https://www.eltiempo.es/widget/widget_loader/1600114df6a1fce1ebed744498d2c489"></script>
+                    </div>
                 </div>
             </div>
                     
