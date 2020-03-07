@@ -2,6 +2,7 @@
 String mensaje = "Ha ocurrido un error inesperado";
 if(request.getParameter("code") != null){
     String code = request.getParameter("code");
+    mensaje = code;
     if(code.equals("horario-404")){
         if(request.getParameter("origen") != null && request.getParameter("destino") != null && request.getParameter("fecha") != null){
             String origen = request.getParameter("origen");
@@ -31,9 +32,16 @@ if(request.getParameter("code") != null){
     if(code.equals("register-miss")){
         mensaje = "Rellena todos los campos para completar el registro.";
     }
+    if(code.equals("register-duplicate")){
+        mensaje = "Ya existe una cuenta con el correo electrónico o con el DNI que has introducido.";
+    }
     if(code.equals("data-miss")){
         mensaje = "Rellena todos los campos para completar la operación.";
     }
+    if(code.equals("invalid-phone")){
+        mensaje = "El número de teléfono que has introducido no es válido.";
+    }
+    
 }
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

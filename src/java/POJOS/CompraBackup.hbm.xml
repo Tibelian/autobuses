@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 03-mar-2020 10:51:32 by Hibernate Tools 4.3.1 -->
+<!-- Generated 07-mar-2020 20:55:18 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="POJOS.CompraBackup" table="compra_backup" catalog="es_autobus" optimistic-lock="version">
+    <class name="POJOS.CompraBackup" table="compra_backup" catalog="bd_autobus_tid" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">
             <column name="id" />
             <generator class="identity" />

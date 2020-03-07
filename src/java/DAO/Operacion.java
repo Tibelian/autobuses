@@ -140,6 +140,16 @@ public class Operacion {
     }
     
     
+    public boolean existeCuenta(SessionFactory sessionBuilder, String dni, String email){
+        Session session = sessionBuilder.openSession();
+        String hql = "from Cliente where dni = :dni OR email = :email";
+        Query query = session.createQuery(hql);
+        query.setParameter("email", email);
+        query.setParameter("dni", dni);
+        Cliente cliente = (Cliente)query.uniqueResult();
+        session.close();
+        return (cliente != null);
+    }
     public void crearCuenta(SessionFactory sessionBuilder, Cliente cliente) throws HibernateException{
         Session session = sessionBuilder.openSession();
         Transaction tx = null;

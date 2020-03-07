@@ -1,5 +1,5 @@
 package POJOS;
-// Generated 03-mar-2020 10:51:31 by Hibernate Tools 4.3.1
+// Generated 07-mar-2020 20:55:13 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -16,7 +16,7 @@ public class Cliente  implements java.io.Serializable {
      private String clave;
      private String nombre;
      private String apellidos;
-     private int telefono;
+     private String telefono;
      private String email;
      private Set tarjetas = new HashSet(0);
 
@@ -24,7 +24,7 @@ public class Cliente  implements java.io.Serializable {
     }
 
 	
-    public Cliente(String dni, String clave, String nombre, String apellidos, int telefono, String email) {
+    public Cliente(String dni, String clave, String nombre, String apellidos, String telefono, String email) {
         this.dni = dni;
         this.clave = clave;
         this.nombre = nombre;
@@ -32,7 +32,7 @@ public class Cliente  implements java.io.Serializable {
         this.telefono = telefono;
         this.email = email;
     }
-    public Cliente(String dni, String clave, String nombre, String apellidos, int telefono, String email, Set tarjetas) {
+    public Cliente(String dni, String clave, String nombre, String apellidos, String telefono, String email, Set tarjetas) {
        this.dni = dni;
        this.clave = clave;
        this.nombre = nombre;
@@ -77,11 +77,11 @@ public class Cliente  implements java.io.Serializable {
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
-    public int getTelefono() {
+    public String getTelefono() {
         return this.telefono;
     }
     
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
     public String getEmail() {

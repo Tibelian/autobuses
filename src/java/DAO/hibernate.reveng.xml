@@ -40,19 +40,19 @@ made subject to such option by the copyright holder.
 Contributor(s):
 -->
 <hibernate-reverse-engineering>
-  <schema-selection match-catalog="es_autobus"/>
-  <table-filter match-name="tarjeta"/>
-  <table-filter match-name="ocupacion"/>
-  <table-filter match-name="compra_backup"/>
-  <table-filter match-name="viaje"/>
-  <table-filter match-name="viaje_backup"/>
+  <schema-selection match-catalog="bd_autobus_tid"/>
   <table-filter match-name="viajero"/>
-  <table-filter match-name="horario"/>
+  <table-filter match-name="ocupacion"/>
   <table-filter match-name="ocupacion_backup"/>
-  <table-filter match-name="administrador"/>
   <table-filter match-name="estacion"/>
-  <table-filter match-name="compra"/>
   <table-filter match-name="viajero_backup"/>
-  <table-filter match-name="ruta"/>
+  <table-filter match-name="viaje_backup"/>
+  <table-filter match-name="administrador"/>
   <table-filter match-name="cliente"/>
+  <table-filter match-name="compra"/>
+  <table-filter match-name="horario"/>
+  <table-filter match-name="viaje"/>
+  <table-filter match-name="tarjeta"/>
+  <table-filter match-name="compra_backup"/>
+  <table-filter match-name="ruta"/>
 </hibernate-reverse-engineering>

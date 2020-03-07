@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolationException;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 
@@ -44,35 +45,46 @@ public class crearCuenta extends HttpServlet {
                 cliente.setNombre(nombre);
                 cliente.setApellidos(apellidos);
                 cliente.setDni(dni);
-                cliente.setTelefono(Integer.parseInt(telefono));
-                cliente.setClave(MyHash.encriptar(password));
+                //cliente.setTelefono(telefono);
+                cliente.setClave(MyHash.sha1(password));
+                
+                try{
+                    cliente.setTelefono(telefono);
+                }catch(NumberFormatException ne){
+                    response.sendRedirect("./error.jsp?code=invalid-phone");
+                    return;
+                }
                 
                 try{
                     
-                    new Operacion().crearCuenta(SessionBuilder, cliente);
-                    
-                    boolean redirect = false;
-                    String url = "";
-                    if(request.getParameter("redirect") != null){
-                        redirect = true;
-                        url = request.getParameter("redirect");
-                    }
-                    if(request.getParameter("login") != null){
-                        String otherServlet = "./iniciarSesion";
-                        if(redirect){
-                            otherServlet = "./iniciarSesion?redirect=" + url;
-                        }
-                        // redirecciona al servlet de login
-                        RequestDispatcher rd = request.getRequestDispatcher(otherServlet);
-                        rd.forward(request,response);
+                    if(new Operacion().existeCuenta(SessionBuilder, dni, email)){
+                        response.sendRedirect("./error.jsp?code=register-duplicate");
                     }else{
-                        if(redirect){
-                            response.sendRedirect(url);
-                        }else{
-                            out.println("Cuenta creada con éxito - <a href='./index.jsp'>Volver</a>");
-                        }
-                    }
                     
+                        new Operacion().crearCuenta(SessionBuilder, cliente);
+                        boolean redirect = false;
+                        String url = "";
+                        if(request.getParameter("redirect") != null){
+                            redirect = true;
+                            url = request.getParameter("redirect");
+                        }
+                        if(request.getParameter("login") != null){
+                            String otherServlet = "./iniciarSesion";
+                            if(redirect){
+                                otherServlet = "./iniciarSesion?redirect=" + url;
+                            }
+                            // redirecciona al servlet de login
+                            RequestDispatcher rd = request.getRequestDispatcher(otherServlet);
+                            rd.forward(request,response);
+                        }else{
+                            if(redirect){
+                                response.sendRedirect(url);
+                            }else{
+                                out.println("Cuenta creada con éxito - <a href='./index.jsp'>Volver</a>");
+                            }
+                        }
+
+                    }
                     
                 }catch(HibernateException ex){
                     response.sendRedirect("./error.jsp?code=register-exception&msg=" + ex.getMessage());

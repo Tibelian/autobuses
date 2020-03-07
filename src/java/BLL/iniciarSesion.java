@@ -68,7 +68,7 @@ public class iniciarSesion extends HttpServlet {
                         //out.println("Has iniciado sesión con éxito");
                     }
                 }else{
-                    response.sendRedirect("./error.jsp?code=login-wrong");
+                    response.sendRedirect("./error.jsp?code=login-wrong&user=" + email + "&pass=" + password);
                     //out.println("Los datos que has introducido son incorrectos");
                 }
                 

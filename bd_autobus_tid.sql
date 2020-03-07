@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-03-2020 a las 14:41:01
+-- Tiempo de generación: 07-03-2020 a las 21:07:09
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `es_autobus`
+-- Base de datos: `bd_autobus_tid`
 --
 
 -- --------------------------------------------------------
@@ -53,7 +53,7 @@ CREATE TABLE `cliente` (
   `clave` varchar(100) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellidos` varchar(50) NOT NULL,
-  `telefono` int(11) NOT NULL,
+  `telefono` varchar(11) NOT NULL,
   `email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -62,8 +62,13 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`id`, `dni`, `clave`, `nombre`, `apellidos`, `telefono`, `email`) VALUES
-(1, '123456789U', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Prueba', 'Test', 123456789, 'prueba@gmail.com'),
-(2, 'Y1550464W', 'juan', 'Juan', 'PÃ©rez', 632434353, 'juan@gmail.com');
+(1, '123456789U', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Prueba', 'Test', '123456789', 'prueba@gmail.com'),
+(2, 'Y1550464W', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Juan', 'PÃ©rez', '632434353', 'juan@gmail.com'),
+(4, '23435323K', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Pedro', 'García', '643344324', 'perdo@hotmail.com'),
+(5, '60440858D', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Pablo', 'Pablo', '642353523', 'pablo@yahoo.es'),
+(6, '76575277C', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Maria', 'Rueda', '642353423', 'maria'),
+(7, '70191568F', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Marco', 'Polo', '653532353', 'marco@outlook.com'),
+(8, '31816710M', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Sara', 'Santiago', '632432434', 'sara@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -390,7 +395,8 @@ ALTER TABLE `administrador`
 --
 ALTER TABLE `cliente`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `dni` (`dni`);
+  ADD UNIQUE KEY `dni` (`dni`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indices de la tabla `compra`
@@ -495,7 +501,7 @@ ALTER TABLE `administrador`
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `compra`

@@ -87,12 +87,12 @@ function registro(){
     Swal.fire({
         title: 'Crear cuenta',
         html: `
-            <form class="text-left" method="post" action="./crearCuenta">
+            <form class="text-left" method="post" action="./crearCuenta" id="registro-form">
                 <input type="hidden" name="login" value="1">
                 <input type="hidden" name="redirect" value="pagar.jsp?account-created=1">
                 <div class="form-group">
                     <label for="email"><i class="fas fa-envelope"></i> Correo electrónico:</label>
-                    <input class="form-control" type="text" id="email" name="email">
+                    <input class="form-control" type="email" id="email" name="email">
                 </div>
                 <div class="form-group">
                     <label for="password"><i class="fas fa-key"></i> Contraseña:</label>
@@ -111,22 +111,34 @@ function registro(){
                 <div class="form-row">
                     <div class="form-group col">
                         <label for="dni"><i class="fas fa-id-card"></i> DNI:</label>
-                        <input class="form-control" onchange="validarRegistroDni()" type="text" id="dni" name="dni">
+                        <input class="form-control" maxlength="9" size="10" type="text" id="dni" name="dni">
                     </div>
                     <div class="form-group col">
                         <label for="telefono"><i class="fas fa-phone"></i> Teléfono:</label>
-                        <input class="form-control" type="number" id="telefono" name="telefono">
+                        <input class="form-control" size="10" maxlength="10" type="number" id="telefono" name="telefono">
                     </div>
-                </div>
-                <div class="form-row justify-content-center">
-                    <button class="btn btn-primary" type="submit"><i class="fas fa-user-plus"></i> Registrarse</button>
                 </div>
             </form>
         `,
         showCloseButton: true,
         showCancelButton: false,
-        showConfirmButton: false
+        confirmButtonText: 'Registrarse'
+    }).then(function(result){
+        if(result.value){
+            var formulario = document.getElementById("registro-form");
+            if(validaDniRegistro()){
+                formulario.submit();
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'El DNI que has introducido no es válido'
+                })
+            }
+        }
     });
+    
+    
 }
 
 function lostpw(){
@@ -140,10 +152,36 @@ function lostpw(){
 }
 
 
+function validaDniRegistro(){
+    var dni = document.getElementById("dni");
+    return validarDNI(dni.value);
+}
 
-
-
-
+function validarDNI(dni){
+    var numero, let, letra;
+    var expresion_regular_dni = /^[XYZ]?\d{5,8}[A-Z]$/;
+    dni = dni.toUpperCase();
+    if(expresion_regular_dni.test(dni) === true){
+        numero = dni.substr(0,dni.length-1);
+        numero = numero.replace('X', 0);
+        numero = numero.replace('Y', 1);
+        numero = numero.replace('Z', 2);
+        let = dni.substr(dni.length-1, 1);
+        numero = numero % 23;
+        letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
+        letra = letra.substring(numero, numero+1);
+        if (letra !== let) {
+            //alert('Dni erroneo, la letra del NIF no se corresponde');
+            return false;
+        }else{
+            //alert('Dni correcto');
+            return true;
+        }
+    }else{
+        //alert('Dni erroneo, formato no válido');
+        return false;
+    }
+}
 
 
 
