@@ -17,7 +17,7 @@
         <property name="plazas" type="int">
             <column name="plazas" not-null="true" />
         </property>
-        <set name="compraBackups" table="compra_backup" inverse="true" lazy="true" fetch="select">
+        <set name="compraBackups" table="compra_backup" inverse="true" lazy="true" fetch="select" cascade="save-update">
             <key>
                 <column name="id_viaje" not-null="true" />
             </key>

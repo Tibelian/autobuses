@@ -11,7 +11,7 @@
         <many-to-one name="tarjeta" class="POJOS.Tarjeta" fetch="select">
             <column name="id_tarjeta" not-null="true" />
         </many-to-one>
-        <many-to-one name="viajeBackup" class="POJOS.ViajeBackup" fetch="select">
+        <many-to-one name="viajeBackup" class="POJOS.ViajeBackup" fetch="select" cascade="save-update">
             <column name="id_viaje" not-null="true" />
         </many-to-one>
         <property name="importe" type="double">
@@ -23,7 +23,7 @@
         <property name="localizador" type="string">
             <column name="localizador" length="20" not-null="true" unique="true" />
         </property>
-        <set name="ocupacionBackups" table="ocupacion_backup" inverse="true" lazy="true" fetch="select">
+        <set name="ocupacionBackups" table="ocupacion_backup" inverse="true" lazy="true" fetch="select" cascade="save-update">
             <key>
                 <column name="id_compra" not-null="true" />
             </key>

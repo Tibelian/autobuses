@@ -77,7 +77,8 @@ List<Viaje> listadoViajes = (List)session.getAttribute("listadoViajes");
                                     <td><%= fechaSalida + " " + horaSalida %></td>
                                     <td><%= viaje.getPlazas() %></td>
                                     <td>
-                                        <form method="post" action="./finalizarViaje">
+                                        <form method="post" action="../finalizarViaje">
+                                            <input type="hidden" name="id" value="<%= viaje.getId() %>">
                                             <button class="w-100 btn btn-sm btn-danger" type="submit"><i class="fas fa-ban"></i></button>
                                         </form>
                                     </td>
@@ -133,3 +134,7 @@ List<Viaje> listadoViajes = (List)session.getAttribute("listadoViajes");
         
     </body>
 </html>
+
+<%
+session.setAttribute("listadoViajes", null);
+%>

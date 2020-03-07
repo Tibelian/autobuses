@@ -11,7 +11,7 @@
         <many-to-one name="compraBackup" class="POJOS.CompraBackup" fetch="select">
             <column name="id_compra" not-null="true" />
         </many-to-one>
-        <many-to-one name="viajeroBackup" class="POJOS.ViajeroBackup" fetch="select">
+        <many-to-one name="viajeroBackup" class="POJOS.ViajeroBackup" fetch="select" cascade="save-update">
             <column name="id_viajero" not-null="true" />
         </many-to-one>
         <property name="asiento" type="int">

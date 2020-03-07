@@ -5,11 +5,15 @@ import Modelo.AutobusesException;
 import POJOS.Administrador;
 import POJOS.Cliente;
 import POJOS.Compra;
+import POJOS.CompraBackup;
 import POJOS.Horario;
 import POJOS.Ocupacion;
+import POJOS.OcupacionBackup;
 import POJOS.Ruta;
 import POJOS.Tarjeta;
 import POJOS.Viaje;
+import POJOS.ViajeBackup;
+import POJOS.ViajeroBackup;
 import java.util.Iterator;
 import java.util.List;
 import org.hibernate.Hibernate;
@@ -251,6 +255,77 @@ public class Operacion {
     }
     
     
+    public void guardarViajeBackup(SessionFactory sessionBuilder, Viaje viaje){
+        Session session = sessionBuilder.openSession();
+        Transaction tx = null;
+        try{
+            
+            tx = session.beginTransaction();
+            
+            // hay que hacer los set de viaje backup
+            // pero aquellos viajes que tengan otro objeto o list
+            // habrá que hacer los set de esos también
+            ViajeBackup viajeBackup = new ViajeBackup();
+            viajeBackup.setFecha(viaje.getFecha());
+            viajeBackup.setPlazas(viaje.getPlazas());
+            viajeBackup.setHorario(viaje.getHorario());
+            
+            Iterator itCompra = viaje.getCompras().iterator();
+            while(itCompra.hasNext()){
+                Compra compra = (Compra)itCompra.next();
+                CompraBackup compraBackup = new CompraBackup();
+                compraBackup.setImporte(compra.getImporte());
+                compraBackup.setLocalizador(compra.getLocalizador());
+                compraBackup.setTarjeta(compra.getTarjeta());
+                compraBackup.setViajeros(compra.getViajeros());
+                compraBackup.setViajeBackup(viajeBackup);
+                Iterator itOcupacion = compra.getOcupacions().iterator();
+                while(itOcupacion.hasNext()){
+                    Ocupacion ocupacion = (Ocupacion)itOcupacion.next();
+                    OcupacionBackup ocupacionBackup = new OcupacionBackup();
+                    ocupacionBackup.setAsiento(ocupacion.getAsiento());
+                    ocupacionBackup.setImporte(ocupacion.getImporte());
+                    ocupacionBackup.setCompraBackup(compraBackup);
+                    ViajeroBackup viajeroBackup = new ViajeroBackup();
+                    viajeroBackup.setApellidos(ocupacion.getViajero().getApellidos());
+                    viajeroBackup.setDni(ocupacion.getViajero().getDni());
+                    viajeroBackup.setNombre(ocupacion.getViajero().getNombre());
+                    ocupacionBackup.setViajeroBackup(viajeroBackup);
+                    compraBackup.getOcupacionBackups().add(ocupacionBackup);
+                }
+                viajeBackup.getCompraBackups().add(compraBackup);
+            }
+            
+            session.saveOrUpdate(viajeBackup);
+            tx.commit();
+            
+        }catch(HibernateException he){
+            he.printStackTrace();
+            if(tx != null){
+                tx.rollback();
+            }
+            throw he;
+        }finally{
+            session.close();
+        }
+    }
+    public void borrarViaje(SessionFactory sessionBuilder, Viaje viaje){
+        Session session = sessionBuilder.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            session.delete(viaje);
+            tx.commit();
+        }catch(HibernateException he){
+            he.printStackTrace();
+            if(tx != null){
+                tx.rollback();
+            }
+            throw he;
+        }finally{
+            session.close();
+        }
     
+    }
     
 }

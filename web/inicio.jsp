@@ -128,7 +128,7 @@ List<Estacion> listadoOrigen = (List)session.getAttribute("listadoOrigen");
                             <a class="btn btn-outline-dark" href="#"><i class="fas fa-envelope"></i> Contactar</a>
                         </div>
                         <div class="col-sm-6">
-                            <img class="ml-auto shadow" src="./assets/img/bus1.jpg" width="100%" alt="viaja conmigo">
+                            <img class="ml-auto shadow" src="./assets/img/bus2.jpg" width="100%" alt="viaja conmigo">
                         </div>
                     </div>
                 </div>

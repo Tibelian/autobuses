@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-03-2020 a las 10:38:51
+-- Tiempo de generación: 07-03-2020 a las 14:41:01
 -- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.2
+-- Versión de PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -89,9 +89,6 @@ INSERT INTO `compra` (`id`, `id_viaje`, `id_tarjeta`, `fecha`, `importe`, `viaje
 (9, 1, 9, '2020-02-20 10:12:57', 41, 2, 'NMPBaBrB'),
 (10, 1, 11, '2020-02-20 19:51:28', 20.5, 1, 'Dlcs2WKi'),
 (11, 1, 9, '2020-02-20 20:17:17', 20.5, 1, 'oORmKSw6'),
-(12, 3, 9, '2020-02-20 20:51:40', 20.5, 1, 'fORPceJR'),
-(13, 3, 11, '2020-02-20 21:49:48', 41, 2, 'CkXjivrU'),
-(14, 3, 9, '2020-02-21 11:41:29', 61.5, 3, 'lDFXjq10'),
 (15, 1, 11, '2020-02-21 12:19:35', 20.5, 1, 'gjkyHl6P'),
 (16, 1, 9, '2020-03-03 10:04:08', 20.5, 1, '0g9wuZAV'),
 (17, 4, 9, '2020-03-03 14:09:57', 16, 1, '8tMpEDy3');
@@ -110,6 +107,15 @@ CREATE TABLE `compra_backup` (
   `viajeros` int(11) NOT NULL,
   `localizador` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `compra_backup`
+--
+
+INSERT INTO `compra_backup` (`id`, `id_viaje`, `id_tarjeta`, `importe`, `viajeros`, `localizador`) VALUES
+(2, 2, 11, 41, 2, 'CkXjivrU'),
+(3, 2, 9, 61.5, 3, 'lDFXjq10'),
+(4, 2, 9, 20.5, 1, 'fORPceJR');
 
 -- --------------------------------------------------------
 
@@ -189,12 +195,6 @@ INSERT INTO `ocupacion` (`id`, `id_viajero`, `id_compra`, `asiento`, `importe`) 
 (2, 3, 9, 1, 20.5),
 (3, 4, 10, 4, 20.5),
 (4, 5, 11, 3, 20.5),
-(5, 6, 12, 2, 20.5),
-(6, 7, 13, 4, 20.5),
-(7, 8, 13, 1, 20.5),
-(8, 9, 14, 6, 20.5),
-(9, 10, 14, 5, 20.5),
-(10, 11, 14, 3, 20.5),
 (11, 12, 15, 10, 20.5),
 (12, 13, 16, 6, 20.5),
 (13, 14, 17, 1, 16);
@@ -212,6 +212,18 @@ CREATE TABLE `ocupacion_backup` (
   `asiento` int(11) NOT NULL,
   `importe` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `ocupacion_backup`
+--
+
+INSERT INTO `ocupacion_backup` (`id`, `id_viajero`, `id_compra`, `asiento`, `importe`) VALUES
+(2, 3, 2, 1, 20.5),
+(3, 4, 2, 4, 20.5),
+(4, 5, 3, 3, 20.5),
+(5, 6, 3, 5, 20.5),
+(6, 7, 3, 6, 20.5),
+(7, 8, 4, 2, 20.5);
 
 -- --------------------------------------------------------
 
@@ -282,7 +294,6 @@ CREATE TABLE `viaje` (
 
 INSERT INTO `viaje` (`id`, `id_horario`, `fecha`, `plazas`, `plazas_disponibles`) VALUES
 (1, 2, '2020-01-28', 10, 4),
-(3, 1, '2020-01-28', 6, 0),
 (4, 13, '2020-03-03', 12, 11);
 
 -- --------------------------------------------------------
@@ -304,18 +315,18 @@ CREATE TABLE `viajero` (
 --
 
 INSERT INTO `viajero` (`id`, `dni`, `nombre`, `apellidos`, `asiento`) VALUES
-(2, 'Y1550464W', 'Juan', 'PÃ©rez', 2),
-(3, 'Y1550464W', 'Marco', 'Polo', 1),
-(4, 'Y1550464W', 'Daniel', 'JimÃ©nez', 4),
-(5, 'Y1550464W', 'Gabriel', 'MartÃ­nez', 3),
-(6, 'Y1550464W', 'Daniel', 'Pardo', 2),
-(7, 'Y1550464W', 'Carlos', 'GarcÃ­a', 4),
-(8, 'Y1550464W', 'Pedro', 'LÃ³pez', 1),
-(9, 'Y1550464W', 'Alan', 'Sifre', 6),
-(10, 'Y1550464W', 'RaÃºl', 'Zamora', 5),
-(11, 'Y1550464W', 'Carlos', 'Motos', 3),
-(12, 'Y1550464W', 'Juan', 'López', 10),
-(13, '06290540v', 'Juan', 'Pérez', 6),
+(2, '2323321a', 'Juan', 'PÃ©rez', 2),
+(3, 'Y1230464W', 'Marco', 'Polo', 1),
+(4, 'Y5345044W', 'Daniel', 'JimÃ©nez', 4),
+(5, 'Y1532464W', 'Gabriel', 'MartÃ­nez', 3),
+(6, 'Y1550523D', 'Daniel', 'Pardo', 2),
+(7, 'Y1552345F', 'Carlos', 'GarcÃ­a', 4),
+(8, 'Y1550345G', 'Pedro', 'LÃ³pez', 1),
+(9, 'Y1550464G', 'Alan', 'Sifre', 6),
+(10, 'Y1234464W', 'RaÃºl', 'Zamora', 5),
+(11, 'Y15504865V', 'Carlos', 'Motos', 3),
+(12, 'Y1552356F', 'Juan', 'López', 10),
+(13, '06290230v', 'Juan', 'Pérez', 6),
 (14, '06290540V', 'Anabel', 'Morales Núñez', 1);
 
 -- --------------------------------------------------------
@@ -331,6 +342,18 @@ CREATE TABLE `viajero_backup` (
   `apellidos` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `viajero_backup`
+--
+
+INSERT INTO `viajero_backup` (`id`, `dni`, `nombre`, `apellidos`) VALUES
+(3, 'Y1550345G', 'Pedro', 'LÃ³pez'),
+(4, 'Y1552345F', 'Carlos', 'GarcÃ­a'),
+(5, 'Y15504865V', 'Carlos', 'Motos'),
+(6, 'Y1234464W', 'RaÃºl', 'Zamora'),
+(7, 'Y1550464G', 'Alan', 'Sifre'),
+(8, 'Y1550523D', 'Daniel', 'Pardo');
+
 -- --------------------------------------------------------
 
 --
@@ -343,6 +366,13 @@ CREATE TABLE `viaje_backup` (
   `fecha` date NOT NULL,
   `plazas` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `viaje_backup`
+--
+
+INSERT INTO `viaje_backup` (`id`, `id_horario`, `fecha`, `plazas`) VALUES
+(2, 1, '2020-01-28', 6);
 
 --
 -- Índices para tablas volcadas
@@ -477,7 +507,7 @@ ALTER TABLE `compra`
 -- AUTO_INCREMENT de la tabla `compra_backup`
 --
 ALTER TABLE `compra_backup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `estacion`
@@ -501,7 +531,7 @@ ALTER TABLE `ocupacion`
 -- AUTO_INCREMENT de la tabla `ocupacion_backup`
 --
 ALTER TABLE `ocupacion_backup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `ruta`
@@ -531,13 +561,13 @@ ALTER TABLE `viajero`
 -- AUTO_INCREMENT de la tabla `viajero_backup`
 --
 ALTER TABLE `viajero_backup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `viaje_backup`
 --
 ALTER TABLE `viaje_backup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
