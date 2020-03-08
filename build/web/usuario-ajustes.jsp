@@ -28,7 +28,7 @@ Cliente cliente = (Cliente) session.getAttribute("cliente");
             <section class="row flex-column align-items-center justify-content-center">
                 <h1 class="mt-4">Configuración de cuenta</h1>
                 <div class="col-6 bg-white shadow rounded p-4 my-3">         
-                    <form method="POST" action="#">
+                    <form method="POST" action="./guardarAjustes">
                         <div class="form-row">
                             <div class="form-group col">
                                 <label for="nombre"><i class="fas fa-user"></i> Nombre:</label>
@@ -51,13 +51,25 @@ Cliente cliente = (Cliente) session.getAttribute("cliente");
                         </div>
                         <div class="form-group">
                             <label for="password"><i class="fas fa-key"></i> Introduzca otra vez su contraseña para confirmar los cambios:</label>
-                            <input type="text" class="form-control" id="password" name="password" required autocomplete="off">
+                            <input type="password" class="form-control" id="password" name="password" required autocomplete="off">
                         </div>
                         <div class="d-flex">
                             <button type="submit" class="mx-auto btn btn-primary"><i class="fas fa-save"></i> Guardar cambios</button>
                         </div>
                     </form>
                 </div>
+                <%
+                if(request.getParameter("ok") != null){
+                %>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Los datos personales has sido modificados con éxito
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <%
+                }
+                %>
             </section>
         </main>
                                             

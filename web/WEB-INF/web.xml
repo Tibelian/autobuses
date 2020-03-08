@@ -56,6 +56,10 @@
         <servlet-name>cargaLocalizador</servlet-name>
         <servlet-class>BLL.cargaLocalizador</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>guardarAjustes</servlet-name>
+        <servlet-class>BLL.guardarAjustes</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>buscarViajes</servlet-name>
         <url-pattern>/buscarViajes</url-pattern>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>cargaLocalizador</servlet-name>
         <url-pattern>/cargaLocalizador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>guardarAjustes</servlet-name>
+        <url-pattern>/guardarAjustes</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

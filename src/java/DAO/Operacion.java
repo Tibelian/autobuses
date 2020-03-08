@@ -376,4 +376,23 @@ public class Operacion {
         return compra;
     }
     
+    
+    public void actualizarCliente(SessionFactory sessionBuilder, Cliente cliente){
+        Session session = sessionBuilder.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            session.saveOrUpdate(cliente);
+            tx.commit();
+        }catch(HibernateException he){
+            he.printStackTrace();
+            if(tx != null){
+                tx.rollback();
+            }
+            throw he;
+        }finally{
+            session.close();
+        }
+    }
+    
 }
