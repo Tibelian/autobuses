@@ -24,7 +24,7 @@ List<Viaje> listadoViajes = (List)session.getAttribute("listadoViajes");
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="../assets/css/all.min.css"/>
-        <link rel="stylesheet" href="../assets/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="../assets/css/datatables.min.css"/>
         <link rel="stylesheet" href="../assets/css/blue-style.css"/>
         <title>Adminstración - AutoBus</title>
@@ -134,7 +134,3 @@ List<Viaje> listadoViajes = (List)session.getAttribute("listadoViajes");
         
     </body>
 </html>
-
-<%
-session.setAttribute("listadoViajes", null);
-%>

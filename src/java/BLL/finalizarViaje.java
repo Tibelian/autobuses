@@ -45,8 +45,12 @@ public class finalizarViaje extends HttpServlet {
                         }
                     }
                     try{
+                        
                         new Operacion().guardarViajeBackup(SessionBuilder, elViajeElegido);
                         new Operacion().borrarViaje(SessionBuilder, elViajeElegido);
+                        session.setAttribute("listadoViajes", null);
+                        response.sendRedirect("./admin/");
+                        
                     }catch(HibernateException he){
                         out.print(he.getMessage());
                     }
