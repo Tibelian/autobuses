@@ -1,0 +1,411 @@
+
+
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../webfonts/Montserrat-Regular.ttf');
+}
+
+
+.text-shadow{
+    text-shadow: 1px 1px 2px black; 
+}
+.bg-img{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+.bg-img::before{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: "";
+    background-color: rgba(0, 0, 0, .4);
+}
+
+
+/* pasajero */
+.passager button{
+    border: 0;
+    font-size: 13px;
+    padding: 5px;
+    background-color: #17a2b8;
+    color: #fff;
+    width: 100%;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.passager-data{
+    background-color: #d9d9d9;
+    border: 1px solid #17a2b8;
+    position: relative;
+}
+.passager-data.show{
+    padding: 20px;
+}
+.passager-data.hide{
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+}
+.passager-data.show{
+    opacity: 1;
+    visibility: visible;
+    height: 140px;
+    transition: all 1s;
+    margin-bottom: 15px;
+}
+.passager .close{
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 30px;
+    height: 30px;
+    padding: 5px !important;
+    font-size: 15px;
+    border-radius: 50%;
+}
+.passager button{
+    margin-top: auto;
+}
+
+
+
+
+/*
+DRAG AND DROP
+*/
+.drag-and-drop{
+    padding: 25px;
+    background-color: #d9d9d9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    position: relative;
+}
+.drag-and-drop .icons{
+    min-width: 100px;
+    min-height: 95px;
+    padding: 20px;
+    background-color: rgba(150, 0, 0, .1);
+    margin-bottom: 20px;
+    border: 2px dashed rgba(150, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    transition: all 1s;
+}
+.drag-and-drop .icons i{
+    margin: 0 10px 0 10px;
+    color: #444;
+    cursor: pointer;
+}
+.drag-and-drop .icons i:hover{
+    color: #666;
+}
+
+.drag-and-drop .icons{
+}
+
+
+.bus{
+    max-width: 440px;
+    max-height: 150px;
+    background-color: #f9f9f9;
+    padding-left: 80px;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    border-radius: 20px 5px 5px 20px;
+    box-shadow: 0 0 5px 5px rgba(0,0,0,.1);
+    z-index: 1;
+}
+.bus::before{
+    content: "CONDUCTOR";
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #17a2b8;
+    font-size: 7px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    box-shadow: inset 0 0 5px 5px rgba(0,0,0,.1);
+}
+.bus::after{
+    content: "";
+    position: absolute;
+    left: -20px;
+    top: 20px;
+    bottom: auto;
+    width: 20px;
+    height: calc(100% - 40px);
+    background-color: #f9f9f9;
+    box-shadow: -7px 0 5px 0 rgba(0,0,0,.1);
+    border-radius: 15px 0 0 15px;
+}
+.bus .chair{
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    background-color: #007bff;
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px 5px rgba(0,0,0,.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chair.busy{
+    filter: grayscale(100%);
+    cursor: not-allowed;
+}
+.chair.busy span{
+    font-size: 8px;
+}
+.chair i{
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+}
+.chair span{
+    position: absolute;
+    z-index: 99 !important;
+    color: #d9d9d9;
+}
+.chair span::selection { background: transparent; }
+.chair span::-moz-selection { background: transparent; }
+
+.wheel{
+    position: absolute;
+    width: 40px;
+    height: 7px;
+    background-color: #444;
+}
+.w-1{
+    top: -7px;
+    left: 40px;
+    border-radius: 10px 10px 0 0;
+}
+.w-2{
+    top: -7px;
+    right: 40px;
+    border-radius: 10px 10px 0 0;
+}
+.w-3{
+    bottom: -7px;
+    left: 40px;
+    border-radius: 0 0 10px 10px;
+}
+.w-4{
+    bottom: -7px;
+    right: 40px;
+    border-radius: 0 0 10px 10px;
+}
+
+
+.avatar{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    bottom: 15px;
+    z-index: 2;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+}
+.avatar i{
+    color: rgba(0, 0, 0, .1);
+}
+
+
+
+.animate-test{
+    animation: dragPasajero .5s infinite;
+}
+
+@keyframes dragPasajero {
+    0% {
+        transform: rotate(-20deg);
+    }
+    33% {
+        transform: rotate(0deg);
+    }
+    66% {
+        transform: rotate(20deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+
+
+
+
+
+
+
+/*
+DETALLES BOOTSTRAP Y OWL CAROUSEL
+*/
+.btn, .form-control{
+    box-shadow: inset 0 0 5px 1px rgba(0, 0, 0, .1);
+}
+nav{
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, .1);
+}
+.owl-stage-outer {
+    display: flex;
+    justify-content: center;
+}
+.swal2-content form{
+    padding: 10px 20px 10px 20px;
+}
+
+
+
+
+
+
+
+.progressbar {
+    counter-reset: step;
+    width: 75%;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+.progressbar li {
+    list-style-type: none;
+    width: 15%;
+    float: left;
+    font-size: 12px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+}
+.progressbar li a {
+    text-decoration: none!important;
+    color: #6c757d;
+}
+.progressbar li i {
+    width: 50px;
+    height: 50px;
+    content: counter(step);
+    counter-increment: step;
+    line-height: 50px;
+    border: 2px solid #6c757d;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    background-color: white;
+    font-size: 20px;
+}
+.progressbar li:after {
+    width: 100%;
+    height: 2px;
+    content: '';
+    position: absolute;
+    background-color: #6c757d;
+    top: 25px;
+    left: -50%;
+    z-index: -1;
+}
+.progressbar li:first-child:after {
+    content: none;
+}
+.progressbar li.active a{
+    color: #007bff!important;
+}
+.progressbar li.active i {
+    border-color: #007bff !important;
+    box-shadow: 0 0 5px 5px rgba(0,0,0,.05);
+}
+.progressbar li.active + li:after {
+    background-color: #007bff !important;
+}
+
+
+
+
+
+
+
+
+
+/*
+billete
+*/
+.ticket{
+    background-color: rgb(200, 200, 250);
+    padding: 10px;
+    width: 350px;
+}
+.ticket p{
+    display: flex;
+    height: 25px;
+    align-items: center;
+    justify-content: space-between;
+    width: 50%;
+    margin: 0;
+    font-size: 11px;
+}
+.ticket p span{
+    float: right;
+    font-weight: bold;
+    font-size: 13px;
+}
+.ticket hr{
+    display: block;
+    width: 100%;
+}
+.ticket h4{
+    text-transform: uppercase;
+    margin: 0;
+    font-size: 18px;
+}
+.ticket hr{
+    margin: 5px;
+}
+.ticket .border-dashed{
+    border: 2px dashed rgba(0,0,0,.3);
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.ticket .title{
+    text-align: center;
+    margin: 0 auto 0 auto;
+}
+.ticket .price{
+    width: 100%;
+    padding: 0 10px 0 10px;
+}
+.ticket .price strong{
+    float: right;
+}
+
+
+
+
+

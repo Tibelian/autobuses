@@ -11,44 +11,92 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+
+-- Volcando estructura de base de datos para bd_autobus_tid
+CREATE DATABASE IF NOT EXISTS `bd_autobus_tid` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `bd_autobus_tid`;
+
+-- Volcando estructura para tabla bd_autobus_tid.administrador
+CREATE TABLE IF NOT EXISTS `administrador` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(60) NOT NULL,
+  `clave` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
 -- Volcando datos para la tabla bd_autobus_tid.administrador: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `administrador` DISABLE KEYS */;
 INSERT INTO `administrador` (`id`, `email`, `clave`) VALUES
 	(1, 'jefe@autobus.com', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220');
 /*!40000 ALTER TABLE `administrador` ENABLE KEYS */;
 
--- Volcando datos para la tabla bd_autobus_tid.cliente: ~7 rows (aproximadamente)
+-- Volcando estructura para tabla bd_autobus_tid.cliente
+CREATE TABLE IF NOT EXISTS `cliente` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dni` varchar(10) NOT NULL,
+  `clave` varchar(100) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `apellidos` varchar(50) NOT NULL,
+  `telefono` varchar(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `dni` (`dni`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+
+-- Volcando datos para la tabla bd_autobus_tid.cliente: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` (`id`, `dni`, `clave`, `nombre`, `apellidos`, `telefono`, `email`) VALUES
-	(1, '123456789U', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Prueba', 'Test', '123456789', 'prueba@gmail.com'),
-	(2, 'Y1550464W', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Juan', 'PÃ©rez', '632434353', 'juan@gmail.com'),
-	(4, '23435323K', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Pedro', 'García', '643344324', 'perdo@hotmail.com'),
-	(5, '60440858D', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Pablo', 'Pablo', '642353523', 'pablo@yahoo.es'),
-	(6, '76575277C', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Maria', 'Rueda', '642353423', 'maria'),
-	(7, '70191568F', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Marco', 'Polo', '653532353', 'marco@outlook.com'),
-	(8, '31816710M', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'Sara', 'Santiago', '632432434', 'sara@gmail.com');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 
--- Volcando datos para la tabla bd_autobus_tid.compra: ~8 rows (aproximadamente)
+-- Volcando estructura para tabla bd_autobus_tid.compra
+CREATE TABLE IF NOT EXISTS `compra` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_viaje` int(11) NOT NULL,
+  `id_tarjeta` int(11) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `importe` double NOT NULL,
+  `viajeros` int(11) NOT NULL,
+  `localizador` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_viaje` (`id_viaje`),
+  KEY `id_tarjeta` (`id_tarjeta`),
+  CONSTRAINT `compra_ibfk_1` FOREIGN KEY (`id_viaje`) REFERENCES `viaje` (`id`),
+  CONSTRAINT `compra_ibfk_2` FOREIGN KEY (`id_tarjeta`) REFERENCES `tarjeta` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
+
+-- Volcando datos para la tabla bd_autobus_tid.compra: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `compra` DISABLE KEYS */;
-INSERT INTO `compra` (`id`, `id_viaje`, `id_tarjeta`, `fecha`, `importe`, `viajeros`, `localizador`) VALUES
-	(9, 1, 9, '2020-02-20 10:12:57', 41, 2, 'NMPBaBrB'),
-	(10, 1, 11, '2020-02-20 19:51:28', 20.5, 1, 'Dlcs2WKi'),
-	(11, 1, 9, '2020-02-20 20:17:17', 20.5, 1, 'oORmKSw6'),
-	(15, 1, 11, '2020-02-21 12:19:35', 20.5, 1, 'gjkyHl6P'),
-	(16, 1, 9, '2020-03-03 10:04:08', 20.5, 1, '0g9wuZAV'),
-	(17, 4, 9, '2020-03-03 14:09:57', 16, 1, '8tMpEDy3'),
-	(18, 4, 9, '2020-03-07 21:29:11', 16, 1, '4CULGoza'),
-	(21, 4, 9, '2020-03-07 22:11:32', 16, 1, 'T8fnjJyU');
 /*!40000 ALTER TABLE `compra` ENABLE KEYS */;
 
--- Volcando datos para la tabla bd_autobus_tid.compra_backup: ~2 rows (aproximadamente)
+-- Volcando estructura para tabla bd_autobus_tid.compra_backup
+CREATE TABLE IF NOT EXISTS `compra_backup` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_viaje` int(11) NOT NULL,
+  `id_tarjeta` int(11) NOT NULL,
+  `importe` double NOT NULL,
+  `viajeros` int(11) NOT NULL,
+  `localizador` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `localizador` (`localizador`),
+  KEY `id_tarjeta` (`id_tarjeta`),
+  KEY `id_viaje` (`id_viaje`),
+  CONSTRAINT `compra_backup_ibfk_1` FOREIGN KEY (`id_tarjeta`) REFERENCES `tarjeta` (`id`),
+  CONSTRAINT `compra_backup_ibfk_2` FOREIGN KEY (`id_viaje`) REFERENCES `viaje_backup` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+
+-- Volcando datos para la tabla bd_autobus_tid.compra_backup: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `compra_backup` DISABLE KEYS */;
-INSERT INTO `compra_backup` (`id`, `id_viaje`, `id_tarjeta`, `importe`, `viajeros`, `localizador`) VALUES
-	(2, 2, 11, 41, 2, 'CkXjivrU'),
-	(3, 2, 9, 61.5, 3, 'lDFXjq10'),
-	(4, 2, 9, 20.5, 1, 'fORPceJR');
 /*!40000 ALTER TABLE `compra_backup` ENABLE KEYS */;
+
+-- Volcando estructura para tabla bd_autobus_tid.estacion
+CREATE TABLE IF NOT EXISTS `estacion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL,
+  `direccion` varchar(50) NOT NULL,
+  `localidad` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla bd_autobus_tid.estacion: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `estacion` DISABLE KEYS */;
@@ -58,6 +106,17 @@ INSERT INTO `estacion` (`id`, `nombre`, `direccion`, `localidad`) VALUES
 	(3, 'Barcelona', 'Aeropuerto Prat T1', 'Barcelona'),
 	(4, 'Murcia', 'Alhama de Murcia', 'Murcia');
 /*!40000 ALTER TABLE `estacion` ENABLE KEYS */;
+
+-- Volcando estructura para tabla bd_autobus_tid.horario
+CREATE TABLE IF NOT EXISTS `horario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_ruta` int(11) NOT NULL,
+  `hora` time NOT NULL,
+  `tipo` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_ruta` (`id_ruta`),
+  CONSTRAINT `horario_ibfk_1` FOREIGN KEY (`id_ruta`) REFERENCES `ruta` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla bd_autobus_tid.horario: ~13 rows (aproximadamente)
 /*!40000 ALTER TABLE `horario` DISABLE KEYS */;
@@ -77,30 +136,57 @@ INSERT INTO `horario` (`id`, `id_ruta`, `hora`, `tipo`) VALUES
 	(13, 6, '13:58:23', 'Semana');
 /*!40000 ALTER TABLE `horario` ENABLE KEYS */;
 
--- Volcando datos para la tabla bd_autobus_tid.ocupacion: ~9 rows (aproximadamente)
+-- Volcando estructura para tabla bd_autobus_tid.ocupacion
+CREATE TABLE IF NOT EXISTS `ocupacion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_viajero` int(11) NOT NULL,
+  `id_compra` int(11) NOT NULL,
+  `asiento` int(3) NOT NULL,
+  `importe` double NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_compra` (`id_compra`),
+  KEY `id_viajero` (`id_viajero`),
+  CONSTRAINT `ocupacion_ibfk_1` FOREIGN KEY (`id_compra`) REFERENCES `compra` (`id`),
+  CONSTRAINT `ocupacion_ibfk_2` FOREIGN KEY (`id_viajero`) REFERENCES `viajero` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+
+-- Volcando datos para la tabla bd_autobus_tid.ocupacion: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `ocupacion` DISABLE KEYS */;
-INSERT INTO `ocupacion` (`id`, `id_viajero`, `id_compra`, `asiento`, `importe`) VALUES
-	(1, 2, 9, 2, 20.5),
-	(2, 3, 9, 1, 20.5),
-	(3, 4, 10, 4, 20.5),
-	(4, 5, 11, 3, 20.5),
-	(11, 12, 15, 10, 20.5),
-	(12, 13, 16, 6, 20.5),
-	(13, 14, 17, 1, 16),
-	(14, 15, 18, 2, 16),
-	(15, 2, 21, 4, 16);
 /*!40000 ALTER TABLE `ocupacion` ENABLE KEYS */;
 
--- Volcando datos para la tabla bd_autobus_tid.ocupacion_backup: ~6 rows (aproximadamente)
+-- Volcando estructura para tabla bd_autobus_tid.ocupacion_backup
+CREATE TABLE IF NOT EXISTS `ocupacion_backup` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_viajero` int(11) NOT NULL,
+  `id_compra` int(11) NOT NULL,
+  `asiento` int(11) NOT NULL,
+  `importe` double NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_viajero` (`id_viajero`,`id_compra`,`asiento`),
+  KEY `id_compra` (`id_compra`),
+  CONSTRAINT `ocupacion_backup_ibfk_1` FOREIGN KEY (`id_compra`) REFERENCES `compra_backup` (`id`),
+  CONSTRAINT `ocupacion_backup_ibfk_2` FOREIGN KEY (`id_viajero`) REFERENCES `viajero_backup` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+
+-- Volcando datos para la tabla bd_autobus_tid.ocupacion_backup: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `ocupacion_backup` DISABLE KEYS */;
-INSERT INTO `ocupacion_backup` (`id`, `id_viajero`, `id_compra`, `asiento`, `importe`) VALUES
-	(2, 3, 2, 1, 20.5),
-	(3, 4, 2, 4, 20.5),
-	(4, 5, 3, 3, 20.5),
-	(5, 6, 3, 5, 20.5),
-	(6, 7, 3, 6, 20.5),
-	(7, 8, 4, 2, 20.5);
 /*!40000 ALTER TABLE `ocupacion_backup` ENABLE KEYS */;
+
+-- Volcando estructura para tabla bd_autobus_tid.ruta
+CREATE TABLE IF NOT EXISTS `ruta` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_origen` int(11) NOT NULL,
+  `id_destino` int(11) NOT NULL,
+  `duracion` time NOT NULL,
+  `kilometros` int(5) NOT NULL,
+  `precio` float NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_origen_2` (`id_origen`,`id_destino`),
+  KEY `id_destino` (`id_destino`),
+  KEY `id_origen` (`id_origen`),
+  CONSTRAINT `ruta_ibfk_1` FOREIGN KEY (`id_destino`) REFERENCES `estacion` (`id`),
+  CONSTRAINT `ruta_ibfk_2` FOREIGN KEY (`id_origen`) REFERENCES `estacion` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla bd_autobus_tid.ruta: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `ruta` DISABLE KEYS */;
@@ -112,54 +198,83 @@ INSERT INTO `ruta` (`id`, `id_origen`, `id_destino`, `duracion`, `kilometros`, `
 	(6, 2, 1, '02:40:00', 257, 16);
 /*!40000 ALTER TABLE `ruta` ENABLE KEYS */;
 
--- Volcando datos para la tabla bd_autobus_tid.tarjeta: ~2 rows (aproximadamente)
+-- Volcando estructura para tabla bd_autobus_tid.tarjeta
+CREATE TABLE IF NOT EXISTS `tarjeta` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_cliente` int(11) NOT NULL,
+  `tipo` varchar(50) NOT NULL,
+  `numero` varbinary(100) NOT NULL,
+  `caducidad` date NOT NULL,
+  `cvv` int(4) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_cliente` (`id_cliente`),
+  CONSTRAINT `tarjeta_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+
+-- Volcando datos para la tabla bd_autobus_tid.tarjeta: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `tarjeta` DISABLE KEYS */;
-INSERT INTO `tarjeta` (`id`, `id_cliente`, `tipo`, `numero`, `caducidad`, `cvv`) VALUES
-	(9, 1, 'mastercard', _binary 0xAE023D5F753415D6CD129B6CB81682F7D72F6B302BD79A4193898E43CA88BA7D, '2020-11-01', 234),
-	(11, 1, 'discover', _binary 0x6A3988AF5B974FD97BEE24FA4E48E97AD72F6B302BD79A4193898E43CA88BA7D, '2020-11-01', 245);
 /*!40000 ALTER TABLE `tarjeta` ENABLE KEYS */;
 
--- Volcando datos para la tabla bd_autobus_tid.viaje: ~3 rows (aproximadamente)
+-- Volcando estructura para tabla bd_autobus_tid.viaje
+CREATE TABLE IF NOT EXISTS `viaje` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_horario` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `plazas` int(11) NOT NULL,
+  `plazas_disponibles` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_horario` (`id_horario`),
+  CONSTRAINT `viaje_ibfk_1` FOREIGN KEY (`id_horario`) REFERENCES `horario` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+
+-- Volcando datos para la tabla bd_autobus_tid.viaje: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `viaje` DISABLE KEYS */;
 INSERT INTO `viaje` (`id`, `id_horario`, `fecha`, `plazas`, `plazas_disponibles`) VALUES
-	(1, 2, '2020-01-28', 10, 4),
-	(4, 13, '2020-03-03', 12, 9);
+	(4, 13, '2020-03-03', 10, 10),
+	(5, 1, '2020-01-28', 6, 6);
 /*!40000 ALTER TABLE `viaje` ENABLE KEYS */;
 
--- Volcando datos para la tabla bd_autobus_tid.viajero: ~13 rows (aproximadamente)
+-- Volcando estructura para tabla bd_autobus_tid.viajero
+CREATE TABLE IF NOT EXISTS `viajero` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dni` varchar(10) NOT NULL,
+  `nombre` varchar(30) NOT NULL,
+  `apellidos` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `dni` (`dni`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+
+-- Volcando datos para la tabla bd_autobus_tid.viajero: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `viajero` DISABLE KEYS */;
-INSERT INTO `viajero` (`id`, `dni`, `nombre`, `apellidos`) VALUES
-	(2, '67551298E', 'Marco', 'Martínez'),
-	(3, 'Y1230464W', 'Marco', 'Polo'),
-	(4, 'Y5345044W', 'Daniel', 'JimÃ©nez'),
-	(5, 'Y1532464W', 'Gabriel', 'MartÃ­nez'),
-	(6, 'Y1550523D', 'Daniel', 'Pardo'),
-	(7, 'Y1552345F', 'Carlos', 'GarcÃ­a'),
-	(8, 'Y1550345G', 'Pedro', 'LÃ³pez'),
-	(9, 'Y1550464G', 'Alan', 'Sifre'),
-	(10, 'Y1234464W', 'RaÃºl', 'Zamora'),
-	(11, 'Y15504865V', 'Carlos', 'Motos'),
-	(12, 'Y1552356F', 'Juan', 'López'),
-	(13, '06290230v', 'Juan', 'Pérez'),
-	(14, '06290540V', 'Anabel', 'Morales Núñez'),
-	(15, '67551292D', 'Juan', 'Pérez');
 /*!40000 ALTER TABLE `viajero` ENABLE KEYS */;
 
--- Volcando datos para la tabla bd_autobus_tid.viajero_backup: ~6 rows (aproximadamente)
+-- Volcando estructura para tabla bd_autobus_tid.viajero_backup
+CREATE TABLE IF NOT EXISTS `viajero_backup` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dni` varchar(10) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `apellidos` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `dni` (`dni`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+
+-- Volcando datos para la tabla bd_autobus_tid.viajero_backup: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `viajero_backup` DISABLE KEYS */;
-INSERT INTO `viajero_backup` (`id`, `dni`, `nombre`, `apellidos`) VALUES
-	(3, 'Y1550345G', 'Pedro', 'LÃ³pez'),
-	(4, 'Y1552345F', 'Carlos', 'GarcÃ­a'),
-	(5, 'Y15504865V', 'Carlos', 'Motos'),
-	(6, 'Y1234464W', 'RaÃºl', 'Zamora'),
-	(7, 'Y1550464G', 'Alan', 'Sifre'),
-	(8, 'Y1550523D', 'Daniel', 'Pardo');
 /*!40000 ALTER TABLE `viajero_backup` ENABLE KEYS */;
+
+-- Volcando estructura para tabla bd_autobus_tid.viaje_backup
+CREATE TABLE IF NOT EXISTS `viaje_backup` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_horario` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `plazas` int(2) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_horario` (`id_horario`),
+  CONSTRAINT `viaje_backup_ibfk_1` FOREIGN KEY (`id_horario`) REFERENCES `horario` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla bd_autobus_tid.viaje_backup: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `viaje_backup` DISABLE KEYS */;
-INSERT INTO `viaje_backup` (`id`, `id_horario`, `fecha`, `plazas`) VALUES
-	(2, 1, '2020-01-28', 6);
 /*!40000 ALTER TABLE `viaje_backup` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
